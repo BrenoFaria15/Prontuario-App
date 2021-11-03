@@ -1,0 +1,79 @@
+.navbar{
+    padding: 30px;
+    border-left-width: 0px;
+
+}
+
+.card{
+   background-color: #ECF0F1;
+   padding: 30px;
+   border-radius: 5px;
+   width: 450px;
+   margin: auto;
+  
+}
+
+.formlogin{
+    padding-top: 50px;
+}
+
+.cardtop{
+    text-align: center;
+}
+
+.dropdown-menu { 
+    position:relative 
+ }
+
+ .formcadastro{
+    text-align: center;
+    background-color: #ECF0F1;
+    padding: 30px;
+    border-radius: 10px;
+    width: 450px;
+    margin: auto;
+    
+}
+
+.formperfil{
+    text-align: left;
+}
+
+.formcad{
+    padding-top: 50px;
+}
+
+.alinhar{
+    text-align: center;
+}
+
+.lista{
+    text-align: center;
+    background-color: #ECF0F1;
+    padding: 30px;
+    border-radius: 10px;
+    width: 70%;
+    margin: auto;
+}
+
+.btn-space{
+    margin-right: 11px;;
+}
+
+.alinhar-direita{
+    text-align: right;
+}
+
+.home{
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    padding: auto;
+    border-radius: 10px;
+    width: auto;
+}
+
+.imagemhome{
+    text-align: center;
+    padding: center;
+}

@@ -1,23 +1,36 @@
 import React from "react"
-import  '../css/login/login.css'
-import imagemLogin from '../css/login/user.png'
+import  '../css/custom.css'
+import imagemLogin from '../css/user.png'
+import UsuarioService from "../app/services/usuarioServices"
+import LocalStorageService from "../app/services/localStorageService"
+import {mensagemErro} from "../components/toastr"
 class Login extends React.Component{
     state ={
-        usuario:'',
+        nome:'',
         senha:''
     }
 
-
+constructor(){
+    super();
+    this.service = new UsuarioService();
+}
     entrar = () =>{
-        console.log('Usuario: ',this.state.usuario)
-        console.log('Senha: ',this.state.senha)
+        this.service.autenticar({
+            nome: this.state.nome,
+            senha:this.state.senha
+        }).then(response  =>{
+           this.props.history.push('/')
+           LocalStorageService.adicionarItem('_usuario_logado',response.data)
+       }).catch(erro =>{
+           mensagemErro(erro.response.data)
+       })
     }
     
     
     
     render(){
         return(
-        <div>
+        <div className="container-fluid">
             
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container-fluid">
@@ -36,12 +49,12 @@ class Login extends React.Component{
                      <h3 >Login</h3>
                     </div>
 
-                    <label for="usuario" className="col-sm-2 col-form-label">Usuario</label>
-                    <input type="text" value={this.state.usuario} 
-                    onChange={e => this.setState({usuario: e.target.value})}
+                    <label htmlFor="nome" className="col-sm-2 col-form-label">Usuario</label>
+                    <input type="text" value={this.state.nome} 
+                    onChange={e => this.setState({nome: e.target.value})}
                     className="form-control" id="usuario"  placeholder="Usuario"></input>
                      <br></br>
-                    <label for="senha">Senha</label>
+                    <label htmlFor="senha">Senha</label>
                     <input type="password" 
                     value={this.state.senha} 
                     onChange={e => this.setState({senha: e.target.value})}
