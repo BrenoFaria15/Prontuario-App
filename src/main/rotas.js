@@ -8,6 +8,9 @@ import listaProfissionais from "../views/listaProfissionais";
 import listaUnidades from "../views/listaUnidades";
 import ListaUsuario from "../views/listaUsuarios";
 import Login from "../views/login";
+import CadastroUnidade from "../views/cadastroUnidade";
+import CadastroProfissional from "../views/cadastroProfissionais";
+
 
 function Rotas(){
     return(
@@ -15,13 +18,15 @@ function Rotas(){
         
         <HashRouter>
             <Switch>
-                <Route  exact path="/usuarios/cadastro" component={CadastroUsuario}/>
+                <Route exact path="/unidades/cadastro/:id" component={CadastroUnidade}/>
+                <Route  exact path="/usuarios/cadastro/:id" component={CadastroUsuario}/>
                 <Route  exact path="/usuarios" component={ListaUsuario}/>
                 <Route  exact path="/" component={Home}/>
                 <Route  exact path="/pacientes" component={listaPacientes}/>
                 <Route  exact path="/profissionais" component={listaProfissionais}/>
                 <Route  exact path="/unidades" component={listaUnidades}/>
-                <Route  exact path="/usuarios/cadastro/:id" component={CadastroUsuario}/>
+                <Route exact path="/profissionais/cadastro/:id" component={CadastroProfissional}/>
+                
             </Switch>
          </HashRouter>   
         </> 

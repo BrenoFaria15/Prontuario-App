@@ -92,12 +92,26 @@ class CadastroUsuario extends React.Component {
             senha: this.state.senha,
             tipoUsuario: this.state.tipoUsuario
         }
+
+        if(this.state.id_usuario==="_add"){
         this.service.salvar(usuario).then(response =>{
             mensagemOk('Usuario Cadastrado !')
             this.props.history.push('/usuarios') 
         }).catch(error =>{
             mensagemErro(error.response.data)
-        })
+        })}else{
+            usuario.id_usuario = this.state.id_usuario
+            this.service.atualizar(usuario).then(
+                response =>{
+                     mensagemOk('Usuario Editado com Sucesso')
+                     this.props.history.push('/usuarios') 
+                }
+            ).catch(
+                error =>{
+                    mensagemErro(error.response.data)
+                }
+            )
+        }
       } 
 
       cancelarCadastro = () =>{
@@ -120,21 +134,21 @@ class CadastroUsuario extends React.Component {
                             <label htmlFor="inputUsuario">Usuario</label>
                             <input type="text" className="form-control" id="inputUsuario" placeholder="Usuario"
                             name="usuario" onChange={e => this.setState({nome: e.target.value})} value={this.state.nome}
-                            ></input>
+                            maxLength="15" ></input>
                         </div>
                         <br></br>
                         <div className="form-group">
                             <label htmlFor="inputSenha">Senha</label>
                             <input type="password" className="form-control" id="inputSenha" placeholder="Senha"
-                            name="senha"   onChange={e => this.setState({senha: e.target.value})}
-                            ></input>
+                            name="senha"   onChange={e => this.setState({senha: e.target.value})} value={this.state.senha}
+                            maxLength="10"></input>
                         </div>
                         <br></br>
                         <div className="form-group">
                             <label htmlFor="inputsenhaRepeticao">Confime sua Senha</label>
                             <input type="password" className="form-control" id="inputsenhaRepeticao" placeholder="Confirrme sua Senha"
-                            name="senha" onChange={e => this.setState({senhaRepeticao: e.target.value})}
-                            ></input>
+                            name="senha" onChange={e => this.setState({senhaRepeticao: e.target.value})} 
+                            maxLength="10" ></input>
                         </div>
                         <div className="formperfil">
                             <fieldset className="form-group">
@@ -173,8 +187,12 @@ class CadastroUsuario extends React.Component {
 
                         <button type="button" className="btn btn-danger btn-space"
                         onClick={this.cancelarCadastro}>Cancelar</button>
+                        
                     </div>
+                   
+                    
                 </div>
+                
             </div>
 
             

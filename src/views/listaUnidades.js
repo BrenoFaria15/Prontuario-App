@@ -2,15 +2,52 @@ import React from "react";
 import 'bootswatch/dist/cerulean/bootstrap.css';
 import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
+import UnidadeService from "../app/services/unidadeServices";
 import {withRouter} from 'react-router-dom'
+import { mensagemOk } from "../components/toastr"
 
 class ListaUnidades extends React.Component {
 
+    state ={
+        unidades:[]
+    }
+
+    constructor(){
+        super();
+        this.service = new UnidadeService();
+    }
+
+    componentDidMount(){
+        this.getUnidades();
+    }
+
+    excluir(id){
+        this.service.deletar(id).then(
+          response =>{
+              this.props.history.push('/unidades');
+              mensagemOk('Unidade Excluida com sucesso');
+              this.getUnidades();
+          }
+        )  
+    }      
+
+
+    getUnidades(){
+        this.service.buscarTodos().then(
+            (response) =>
+               this.setState({unidades:response.data}));
+               
+    }
+
     prepareCadastrar= () =>{
-        this.props.history.push('/usuarios/cadastro')
+        this.props.history.push('/unidades/cadastro/_add')
 
 
     }
+
+    editar(id){
+        this.props.history.push("/unidades/cadastro/"+id);
+     }
 
     render() {
         return (
@@ -27,33 +64,31 @@ class ListaUnidades extends React.Component {
                         <table className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Razão Social</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nome Fantasia</th>
                                     <th scope="col">CNES</th>
                                     <th scope="col">Telefone</th>
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            { this.state.unidades.map(
+                                    unidade =>
                                 <tr className="table-primary">
-                                    <th scope="row">Primary</th>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
-                                    <td>Column content</td>
+                                    <th scope="row">{unidade.id_unidade}</th>
+                                    <td>{unidade.nomeFantasia}</td>
+                                    <td>{unidade.cnes}</td>
+                                    <td>{unidade.telefone}</td>
                                     <td>
-                                        <button type="button" className="btn btn-warning btn-space">Editar</button>
-                                        <button type="button" className="btn btn-danger btn-space">Excluir</button>
+                                    <button type="button" className="btn btn-warning btn-space"
+                                        onClick={() =>this.editar(unidade.id_unidade)}>Editar</button>
+                                        <button type="button" className="btn btn-danger btn-space"
+                                        onClick={() =>this.excluir(unidade.id_unidade)}>Excluir</button>
                                     </td>
 
                                 </tr>
-                                <tr>
-
-                                </tr>
-                                <tr>
-
-                                </tr>
-
-
+                                )
+                            }
                             </tbody>
                         </table>
                         

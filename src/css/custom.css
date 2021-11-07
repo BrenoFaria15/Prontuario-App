@@ -54,7 +54,7 @@
     border-radius: 10px;
     width: 70%;
     margin: auto;
-}
+}   
 
 .btn-space{
     margin-right: 11px;;
@@ -77,3 +77,39 @@
     text-align: center;
     padding: center;
 }
+
+.left{
+    float:left;
+}
+
+.leftbig{
+    float:left;
+    width: 390px;
+    padding: 5px;
+}
+.right{
+    float:right;
+}
+
+.formcadastrouni{
+    text-align: center;
+    background-color: #ECF0F1;
+    padding: 30px;
+    border-radius: 10px;
+    width: 450px;
+    margin: auto;
+    width: 70%;
+    
+}
+.fieldset{
+     display: inline-block; position: absolute;
+     }
+
+     .form-row{display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -ms-flex-wrap:wrap;
+        flex-wrap:wrap;
+        margin-right:-5px;
+        margin-left:-5px}
+    .form-row>.col,.form-row>[class*=col-]{padding-right:5px;padding-left:5px}

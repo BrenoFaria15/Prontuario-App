@@ -1,25 +1,25 @@
-import axios from "axios";
 import ApiService from "../apiservice";
 
-class UsuarioService extends ApiService{
-    constructor(){
-        super('/api/usuarios')
-    }
 
+class ProfissionalService extends ApiService{
+    constructor(){
+        super('/api/profissionais')
+    }
+   
     autenticar(credenciais){
         return this.post('/autenticar',credenciais)
     }
 
-    salvar(usuario){
-        return this.post('/',usuario)
+    salvar(profissional){
+        return this.post('/',profissional)
     }
 
     buscarTodos(){
         return this.get('/all');
     }
 
-    atualizar(usuario){
-        return this.put('/'+usuario.id_usuario,usuario)
+    atualizar(profissional){
+        return this.put('/'+profissional.id_profissional,profissional)
     }
 
     buscarPorId(id){
@@ -29,6 +29,7 @@ class UsuarioService extends ApiService{
     deletar(id){
         return this.delete('/'+id)
     }
+
 }
 
-export default UsuarioService
+export default ProfissionalService

@@ -27,7 +27,7 @@ class ListaUsuario extends React.Component {
      }
 
     prepareCadastrar= () =>{
-        this.props.history.push('/usuarios/cadastro')
+        this.props.history.push('/usuarios/cadastro/_add')
 
 
     }

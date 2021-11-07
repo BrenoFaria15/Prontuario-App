@@ -1,11 +1,11 @@
 import axios from "axios";
 import ApiService from "../apiservice";
 
-class UsuarioService extends ApiService{
+class UnidadeService extends ApiService{
     constructor(){
-        super('/api/usuarios')
+        super('/api/unidades')
     }
-
+   
     autenticar(credenciais){
         return this.post('/autenticar',credenciais)
     }
@@ -18,8 +18,8 @@ class UsuarioService extends ApiService{
         return this.get('/all');
     }
 
-    atualizar(usuario){
-        return this.put('/'+usuario.id_usuario,usuario)
+    atualizar(unidade){
+        return this.put('/'+unidade.id_unidade,unidade)
     }
 
     buscarPorId(id){
@@ -29,6 +29,7 @@ class UsuarioService extends ApiService{
     deletar(id){
         return this.delete('/'+id)
     }
+
 }
 
-export default UsuarioService
+export default UnidadeService
