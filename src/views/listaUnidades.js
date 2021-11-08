@@ -4,7 +4,7 @@ import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
 import UnidadeService from "../app/services/unidadeServices";
 import {withRouter} from 'react-router-dom'
-import { mensagemOk } from "../components/toastr"
+import {mensagemErro,mensagemOk } from "../components/toastr"
 
 class ListaUnidades extends React.Component {
 
@@ -28,7 +28,9 @@ class ListaUnidades extends React.Component {
               mensagemOk('Unidade Excluida com sucesso');
               this.getUnidades();
           }
-        )  
+        ).catch(error => {
+            mensagemErro(error.response.data)
+        })  
     }      
 
 

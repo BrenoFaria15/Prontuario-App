@@ -4,7 +4,7 @@ import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
 import {withRouter} from 'react-router-dom'
 import ProfissionalService from "../app/services/profissionalServices";
-import { mensagemOk } from "../components/toastr"
+import {mensagemErro,mensagemOk } from "../components/toastr"
 
 class ListaProfissionais extends React.Component {
 
@@ -28,7 +28,9 @@ class ListaProfissionais extends React.Component {
               mensagemOk('Profissional Excluido com sucesso');
               this.getProfissionais();
           }
-        )  
+        ).catch(error => {
+            mensagemErro(error.response.data)
+        })   
     } 
     
     componentDidMount(){

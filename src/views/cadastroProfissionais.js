@@ -48,12 +48,14 @@ class CadastroProfissional extends React.Component {
         nomeConselho: '',
         cdConselho:'',
         dataNascimento:'',
-        flgAtivo:true
+        flgAtivo:true,
+       
 
     }
     }
 
     componentDidMount() {
+        
         if (this.state.id_profissional === "_add") {
             return false;
         } else {
@@ -89,12 +91,23 @@ class CadastroProfissional extends React.Component {
 
             )
         }
+
+       // this.checarCor();
     }
 
     validarCheckBox = (e) => {
        let valor = this.state.flgAtivo
        valor=e.target.checked
        this.setState({flgAtivo:valor})
+       /*var corCheck = document.getElementById('checkAtivo')
+       if(valor){
+        this.setState({nomeflgAtivo:'Ativo'})
+           corCheck.style.color='green'
+       }else{
+        this.setState({nomeflgAtivo:'Inativo'})
+        corCheck.style.color='red'
+        
+       }*/
     }
     validar(){
         const msg = []
@@ -131,6 +144,21 @@ class CadastroProfissional extends React.Component {
         return msg;
     }
 
+   /* checarCor(){
+        console.log(this.state.flgAtivo)
+        var corCheck = document.getElementById('checkAtivo');
+        var checkbox=document.getElementById('checkbox1').checked;
+       
+        if(this.state.flgAtivo){
+            this.setState({nomeflgAtivo:'Ativo'})
+            corCheck.style.color='green'
+        }else{
+            this.setState({nomeflgAtivo:'Inativo'})
+            corCheck.style.color='red'
+        }
+    
+    }*/
+
     cadastrar = () => {
         
         
@@ -161,7 +189,7 @@ class CadastroProfissional extends React.Component {
             dataNascimento:this.state.dataNascimento,
             flgAtivo:this.state.flgAtivo
         }
-
+       
 
         if (this.state.id_profissional === "_add") {
             this.service.salvar(profissional).then(response => {
@@ -185,7 +213,7 @@ class CadastroProfissional extends React.Component {
         }
     }
 
-
+    
 
 
 
@@ -214,12 +242,12 @@ class CadastroProfissional extends React.Component {
                                 <div className="form-group col-md-8 ">
                                     <label htmlFor="exampleInputEmail1">Nome</label>
                                     <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Nome Completo"
-                                    onChange={e => this.setState({nome:e.target.value})} value={this.state.nome}></input>
+                                    maxLength="100"  onChange={e => this.setState({nome:e.target.value})} value={this.state.nome}></input>
                                 </div>
                                 <div className="form-group col-md-4">
                                     <label htmlFor="exampleInputEmail1">Celular</label>
                                     <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Celular"
-                                     onChange={e => this.setState({celular: e.target.value})} value={this.state.celular}></input>
+                                     maxLength="15"  onChange={e => this.setState({celular: e.target.value})} value={this.state.celular}></input>
                                 </div>
                             </div>
                             <div className="form-row">
@@ -227,7 +255,7 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">CNS</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Cartão SUS"
-                                         onChange={e => this.setState({cns: e.target.value})} value={this.state.cns}></input>
+                                         maxLength="15" onChange={e => this.setState({cns: e.target.value})} value={this.state.cns}></input>
                                     </div>
                                 </div>
 
@@ -236,7 +264,7 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">CPF</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="CPF"
-                                         onChange={e => this.setState({cpf: e.target.value})} value={this.state.cpf} ></input>
+                                         maxLength="14" onChange={e => this.setState({cpf: e.target.value})} value={this.state.cpf} ></input>
                                     </div>
                                 </div>
 
@@ -244,7 +272,7 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">RG</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="RG"
-                                        onChange={e => this.setState({rg: e.target.value})} value={this.state.rg}></input>
+                                        maxLength="11"  onChange={e => this.setState({rg: e.target.value})} value={this.state.rg}></input>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +283,7 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Logradouro</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Logradouro"
-                                         onChange={e => this.setState({logradouro: e.target.value})} value={this.state.logradouro}></input>
+                                          maxLength="50" onChange={e => this.setState({logradouro: e.target.value})} value={this.state.logradouro}></input>
                                     </div>
                                 </div>
 
@@ -263,14 +291,14 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Número</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Número"
-                                         onChange={e => this.setState({numero: e.target.value})} value={this.state.numero}></input>
+                                         maxLength="5" onChange={e => this.setState({numero: e.target.value})} value={this.state.numero}></input>
                                     </div>
                                 </div>
                                 <div className="col-md-4 ">
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">CEP</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="CEP"
-                                         onChange={e => this.setState({cep: e.target.value})} value={this.state.cep}></input>
+                                         maxLength="9"  onChange={e => this.setState({cep: e.target.value})} value={this.state.cep}></input>
                                     </div>
                                 </div>
                             </div>
@@ -280,14 +308,14 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Bairro</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Bairro"
-                                         onChange={e => this.setState({bairro: e.target.value})} value={this.state.bairro}></input>
+                                         maxLength="25" onChange={e => this.setState({bairro: e.target.value})} value={this.state.bairro}></input>
                                     </div>
                                 </div>
                                 <div className="col-md-4 ">
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Complemento</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Complemento"
-                                         onChange={e => this.setState({complemento: e.target.value})} value={this.state.complemento}></input>
+                                        maxLength="30"  onChange={e => this.setState({complemento: e.target.value})} value={this.state.complemento}></input>
                                     </div>
                                 </div>
 
@@ -295,7 +323,7 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Municipio</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Municipio"
-                                         onChange={e => this.setState({municipio: e.target.value})} value={this.state.municipio}></input>
+                                         maxLength="25" onChange={e => this.setState({municipio: e.target.value})} value={this.state.municipio}></input>
                                     </div>
                                 </div>
                             </div>
@@ -306,30 +334,31 @@ class CadastroProfissional extends React.Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Especialidade</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Especialidade"
-                                         onChange={e => this.setState({especialidade: e.target.value})} value={this.state.especialidade}></input>
+                                          maxLength="50" onChange={e => this.setState({especialidade: e.target.value})} value={this.state.especialidade}></input>
                                     </div>
                                 </div>
                                 <div className="col-md-4 ">
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Conselho</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Conselho"
-                                         onChange={e => this.setState({nomeConselho: e.target.value})} value={this.state.nomeConselho}></input>
+                                        maxLength="10"  onChange={e => this.setState({nomeConselho: e.target.value})} value={this.state.nomeConselho}></input>
                                     </div>
                                 </div>
                                 <div className="col-md-2 ">
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Número do Conselho</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Número"
-                                         onChange={e => this.setState({cdConselho: e.target.value})} value={this.state.cdConselho }></input>
+                                         maxLength="5" onChange={e => this.setState({cdConselho: e.target.value})} value={this.state.cdConselho }></input>
                                     </div>
                                 </div>
                             </div>
                             <br></br>
                             <div className="form-check">
-                                <label className="form-check-label left" htmlFor="flexCheckDefault  ">
+                                <label className="form-check-label left" htmlFor="flexCheckDefault  " id="checkAtivo"> 
                                     Ativo
-                                    <input className="form-check-input" type="checkbox"  id="checkbox"  
-                                  onChange={e =>this.validarCheckBox(e)} ></input>
+                                    <input className="form-check-input" type="checkbox"  id="checkbox1"  checked={this.state.flgAtivo}
+                                        
+                                  onChange={e =>this.validarCheckBox(e)}></input>
                                 </label>
                                 
                             </div>
