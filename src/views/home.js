@@ -2,7 +2,7 @@ import React from "react";
 import 'bootswatch/dist/cerulean/bootstrap.css';
 import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import  '../css/custom.css'
-import imagemHome from '../css/home-imagem.png'
+import imagemHome from '../css/home.png'
 class Home extends React.Component{
     render(){
         return(

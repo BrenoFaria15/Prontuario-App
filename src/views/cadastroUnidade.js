@@ -134,7 +134,7 @@ class CadastroUnidade extends React.Component {
 
     render() {
         return (
-
+            <div className="container-fluid">
             <div className="formcad">
                 <div className="formcadastrouni">
                     <form>
@@ -245,7 +245,7 @@ class CadastroUnidade extends React.Component {
                         onClick={this.cancelarCadastro}>Cancelar</button>
                 </div >
             </div >
-
+        </div>
 
 
 

@@ -4,10 +4,9 @@ import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
 function Navbar() {
   return (
-    <div className="container-fluid">
+    
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container-fluid">
-          <a className="navbar-brand" href="#">Atendimentos</a>
+          <a className="navbar-brand" href="#/atendimentos">Atendimentos</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -40,9 +39,9 @@ function Navbar() {
 
             </ul>
           </div>
-          </div>
+          
       </nav>
-    </div >
+    
 
 
 

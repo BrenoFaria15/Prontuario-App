@@ -194,6 +194,7 @@ class CadastroPaciente extends React.Component {
 
 
         return (
+            <div className="container-fluid">
             <div className="formcad">
                 <div className="formcadastrouni">
                     <form>
@@ -370,7 +371,7 @@ class CadastroPaciente extends React.Component {
 
                 </div>
             </div>
-
+            </div>
 
 
 

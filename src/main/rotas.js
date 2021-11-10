@@ -11,6 +11,7 @@ import Login from "../views/login";
 import CadastroUnidade from "../views/cadastroUnidade";
 import CadastroProfissional from "../views/cadastroProfissionais";
 import CadastroPaciente from "../views/cadastroPacientes";
+import listAtendimentos from "../views/listaAtendimentos";
 
 
 function Rotas(){
@@ -28,6 +29,7 @@ function Rotas(){
                 <Route  exact path="/unidades" component={listaUnidades}/>
                 <Route exact path="/profissionais/cadastro/:id" component={CadastroProfissional}/>
                 <Route exact path="/pacientes/cadastro/:id" component={CadastroPaciente}/>
+                <Route exact path="/atendimentos" component={listAtendimentos}/>
             </Switch>
          </HashRouter>   
         </> 

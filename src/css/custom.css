@@ -1,6 +1,7 @@
 .navbar{
     padding: 30px;
     border-left-width: 0px;
+    
 
 }
 
@@ -117,4 +118,10 @@
 
     .mright{
         margin-left: auto;
+    }
+
+    .center{
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
     }
