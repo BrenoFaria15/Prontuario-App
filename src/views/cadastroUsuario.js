@@ -157,7 +157,7 @@ class CadastroUsuario extends React.Component {
                                 <div className="form-check">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="perfil" id="radioMedico" value="MEDICO" checked=""
-                                        checked={this.state.perfil === "MEDICO"}
+                                        checked={this.state.tipoUsuario === "MEDICO"}
                                         onChange={e => this.setState({tipoUsuario: e.target.value})}></input>
                                         Medico
                                     </label>
@@ -165,7 +165,7 @@ class CadastroUsuario extends React.Component {
                                 <div className="form-check">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="perfil" id="radioEnfermagem" value="ENFERMEIRO"
-                                       checked={this.state.perfil === "ENFERMEIRO"}
+                                       checked={this.state.tipoUsuario === "ENFERMEIRO"}
                                        onChange={e => this.setState({tipoUsuario: e.target.value})} ></input>
                                         Enfermagem
                                     </label>
@@ -173,7 +173,7 @@ class CadastroUsuario extends React.Component {
                                 <div className="form-check ">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="perfil" id="radioRecepcao" value="RECEPCAO"
-                                        checked={this.state.perfil === "RECEPCAO"}
+                                        checked={this.state.tipoUsuario === "RECEPCAO"}
                                         onChange={e => this.setState({tipoUsuario: e.target.value})}></input>
                                         Recepção
                                     </label>

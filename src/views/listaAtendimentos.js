@@ -26,30 +26,35 @@ const mapResponseToValuesAndLabelsP = (data) => ({
 });
 
 class listaAtendimentos extends React.Component {
-    state = {
-        data: '',
-        nomePaciente: '',
-        nomeProfissional: '',
-        cpf: '',
-        atendimentos: [],
-        pacientes: [],
-        id_paciente: null,
-        id_profissional:null,
-        selectData: INITIAL_DATA,
-        setselectData: INITIAL_DATA,
-        selectDataP:INITIAL_DATAP,
-        setselectDataP: INITIAL_DATAP,
 
+    constructor(props) {
+        super(props);
+        this.service = new AtendimentoService();
+        this.state = {
+            data: '',
+            nomePaciente: '',
+            nomeProfissional: '',
+            atendimentos: [],
+            id_paciente: null,
+            id_profissional:null,
+            selectData: INITIAL_DATA,
+            setselectData: INITIAL_DATA,
+            selectDataP:INITIAL_DATAP,
+            setselectDataP: INITIAL_DATAP,
+    
+        }
+        
     }
+    
 
 
 
     buscar = () => {
         const atendimentoFiltro = {
             data: this.state.data,
-            //nomePaciente:this.state.nomePaciente,
-            //nomeProfissional:this.state.nomeProfissional,
-            cpf: this.state.cpf
+            idPaciente:this.state.id_paciente,
+            idProfissional:this.state.id_profissional,
+            
         }
         this.service.consultar(atendimentoFiltro).then(
             response => {
@@ -57,13 +62,9 @@ class listaAtendimentos extends React.Component {
             }
         ).catch(error =>
             console.log(error))
-
+            console.log(this.state)
     }
-    constructor() {
-        super();
-        this.service = new AtendimentoService();
-        
-    }
+    
    
     async callApi(value) {
         const data = await fetch(`http://localhost:8080/api/pacientes/all`)
@@ -113,6 +114,11 @@ class listaAtendimentos extends React.Component {
         }
 
         )
+    }
+
+    prepareCadastrar = () =>{
+        this.props.history.push("/atendimentos/novo/_add")
+    
     }
 
     setselectDataP(data) {
@@ -171,21 +177,14 @@ class listaAtendimentos extends React.Component {
                                         />  
                                 </div>
                                 <br></br>
-                                <div className="form-row">
-                                    <div className="form-group col-md-8 center ">
-                                        <label htmlFor="exampleInputEmail1">CPF</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1"
-                                            placeholder="CPF do Paciente" onChange={e => this.setState({ cpf: e.target.value })}
-                                            value={this.state.cpf}></input>
-                                    </div>
-                                </div>
-                                <br></br>
+                                
                                 <div className="form-row ">
                                     <div className="form-group center" >
                                         <button type="button" className="btn btn-success btn-space"
                                             onClick={this.buscar}>Buscar</button>
                                         <button type="button" className="btn btn-primary btn-space"
-                                        >Novo Atendimento</button>
+                                         onClick={this.prepareCadastrar}>Novo Atendimento
+                                       </button>
                                     </div>
                                 </div>
                                 <br></br>
@@ -193,19 +192,31 @@ class listaAtendimentos extends React.Component {
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Column heading</th>
-                                            <th scope="col">Column heading</th>
-                                            <th scope="col">Column heading</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Data</th>
+                                            <th scope="col">Paciente</th>
+                                            <th scope="col">Profissional</th>
+                                            <th scope="col">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="table-primary">
-                                            <th scope="row">Active</th>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                            <td>Column content</td>
-                                        </tr>
+                                    {
+                                    this.state.atendimentos.map(
+                                        atendimento =>
+                                            <tr className="table-primary">
+                                                <th scope="row">{atendimento.id_atendimento}</th>
+                                                <td>{atendimento.data}</td>
+                                                <td>{atendimento.paciente.nome}</td>
+                                                <td>{atendimento.profissional.nome}</td>
+                                                <td>
+                                                    <button type="button" className="btn btn-warning btn-space"
+                                                        onClick={() => this.editar(atendimento.id_atendimento)}>Editar</button>
+                                                    <button type="button" className="btn btn-danger btn-space"
+                                                        onClick={() => this.excluir(atendimento.id_atendimento)}>Excluir</button>
+                                                </td>
+                                            </tr>
+                                    )
+                                }
                                     </tbody>
                                 </table>
                             </fieldset>

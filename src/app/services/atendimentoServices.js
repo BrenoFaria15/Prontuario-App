@@ -11,15 +11,13 @@ class AtendimentoService extends ApiService{
 
         let params = `?data=${atendimentoFiltro.data}`
 
-        if(atendimentoFiltro.nomePaciente){
-            params=`${params}&nomePaciente=${atendimentoFiltro.nomePaciente}`
+        if(atendimentoFiltro.idPaciente){
+            params=`${params}&idPaciente=${atendimentoFiltro.idPaciente}`
         }
-        if(atendimentoFiltro.nomeProfissional){
-            params=`${params}&nomeProfissional=${atendimentoFiltro.nomeProficional}`
+        if(atendimentoFiltro.idProfissional){
+            params=`${params}&idProfissional=${atendimentoFiltro.idProfissional}`
         }
-        if(atendimentoFiltro.cpf){
-            params=`${params}&cpf=${atendimentoFiltro.cpf}`
-        }
+    
         return this.get(params)
     }
    

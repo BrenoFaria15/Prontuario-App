@@ -12,6 +12,10 @@ import CadastroUnidade from "../views/cadastroUnidade";
 import CadastroProfissional from "../views/cadastroProfissionais";
 import CadastroPaciente from "../views/cadastroPacientes";
 import listAtendimentos from "../views/listaAtendimentos";
+import ListaExames from "../views/listaExames";
+import CadastroExame from "../views/cadastroExames";
+import LancarExame from "../views/lancarExame";
+import NovoAtendimento from "../views/novoAtendimento";
 
 
 function Rotas(){
@@ -30,6 +34,10 @@ function Rotas(){
                 <Route exact path="/profissionais/cadastro/:id" component={CadastroProfissional}/>
                 <Route exact path="/pacientes/cadastro/:id" component={CadastroPaciente}/>
                 <Route exact path="/atendimentos" component={listAtendimentos}/>
+                <Route exact path="/exames" component={ListaExames}/>
+                <Route  exact path="/exames/cadastro/:id" component={CadastroExame}/>
+                <Route  exact path="/exames/lancarexame/:id" component={LancarExame}/>
+                <Route  exact path="/atendimentos/novo/:id" component={NovoAtendimento}/>
             </Switch>
          </HashRouter>   
         </> 
