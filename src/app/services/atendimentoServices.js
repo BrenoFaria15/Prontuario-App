@@ -20,7 +20,10 @@ class AtendimentoService extends ApiService{
     
         return this.get(params)
     }
-   
+    
+    salvar(atendimento){
+        return this.post('/',atendimento)
+    }
     
 
 }

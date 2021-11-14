@@ -160,13 +160,9 @@ class listaAtendimentos extends React.Component {
                                             }}
                                             value={this.state.selectData}
                                             defaultOptions
-                                        />  
-                                </div>
-                                <br></br>
-        
-
-                                <div className="col-md-8  center">
-                                        <AsyncSelect 
+                                        />
+                                        <br></br>
+                                            <AsyncSelect 
                                             cacheOptions
                                             loadOptions={this.callApiP}
                                             onChange={(data) => {
@@ -174,7 +170,13 @@ class listaAtendimentos extends React.Component {
                                             }}
                                             value={this.state.selectDataP}
                                             defaultOptions
-                                        />  
+                                        /> 
+                                </div>
+                                <br></br>
+        
+
+                                <div className="col-md-8  center">
+                                       
                                 </div>
                                 <br></br>
                                 
