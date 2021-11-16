@@ -36,25 +36,28 @@ class listaAtendimentos extends React.Component {
             nomeProfissional: '',
             atendimentos: [],
             id_paciente: null,
-            id_profissional:null,
+            id_profissional: null,
             selectData: INITIAL_DATA,
             setselectData: INITIAL_DATA,
-            selectDataP:INITIAL_DATAP,
+            selectDataP: INITIAL_DATAP,
             setselectDataP: INITIAL_DATAP,
+            id_unidade:7,
+            id_usuario:16
+
     
+
         }
-        
+
     }
-    
+
 
 
 
     buscar = () => {
         const atendimentoFiltro = {
             data: this.state.data,
-            idPaciente:this.state.id_paciente,
-            idProfissional:this.state.id_profissional,
-            
+            idPaciente: this.state.id_paciente,
+            idProfissional: this.state.id_profissional,
         }
         this.service.consultar(atendimentoFiltro).then(
             response => {
@@ -62,10 +65,10 @@ class listaAtendimentos extends React.Component {
             }
         ).catch(error =>
             console.log(error))
-            console.log(this.state)
+        console.log(this.state)
     }
-    
-   
+
+
     async callApi(value) {
         const data = await fetch(`http://localhost:8080/api/pacientes/all`)
             .then((response) => response.json())
@@ -87,15 +90,18 @@ class listaAtendimentos extends React.Component {
 
         return datap;
     }
-   /* <div className="form-row">
-    <div className="form-group col-md-8 center">
-        <label htmlFor="exampleInputEmail1">Nome do Profissional</label>
-        <input type="text" className="form-control" id="exampleInputEmail1"
-            placeholder="Nome do Profissional"
-            value={this.state.nomeProfissional} onChange={e => this.setState({ nomeProfissional: e.target.value })}></input>
-    </div>
-</div>*/
+    /* <div className="form-row">
+     <div className="form-group col-md-8 center">
+         <label htmlFor="exampleInputEmail1">Nome do Profissional</label>
+         <input type="text" className="form-control" id="exampleInputEmail1"
+             placeholder="Nome do Profissional"
+             value={this.state.nomeProfissional} onChange={e => this.setState({ nomeProfissional: e.target.value })}></input>
+     </div>
+ </div>*/
 
+    editar(id) {
+        this.props.history.push("/atendimentos/consulta/" +id);
+    }
 
     handleSubmit() {
         console.log(this.stateselectData);
@@ -116,9 +122,9 @@ class listaAtendimentos extends React.Component {
         )
     }
 
-    prepareCadastrar = () =>{
+    prepareCadastrar = () => {
         this.props.history.push("/atendimentos/novo/_add")
-    
+
     }
 
     setselectDataP(data) {
@@ -151,42 +157,42 @@ class listaAtendimentos extends React.Component {
                                 </div>
                                 <br></br>
 
-                                    <div className="col-md-8  center">
-                                        <AsyncSelect 
-                                            cacheOptions
-                                            loadOptions={this.callApi}
-                                            onChange={(data) => {
-                                                this.setselectData(data);
-                                            }}
-                                            value={this.state.selectData}
-                                            defaultOptions
-                                        />
-                                        <br></br>
-                                            <AsyncSelect 
-                                            cacheOptions
-                                            loadOptions={this.callApiP}
-                                            onChange={(data) => {
-                                                this.setselectDataP(data);
-                                            }}
-                                            value={this.state.selectDataP}
-                                            defaultOptions
-                                        /> 
+                                <div className="col-md-8  center">
+                                    <AsyncSelect
+                                        cacheOptions
+                                        loadOptions={this.callApi}
+                                        onChange={(data) => {
+                                            this.setselectData(data);
+                                        }}
+                                        value={this.state.selectData}
+                                        defaultOptions
+                                    />
+                                    <br></br>
+                                    <AsyncSelect
+                                        cacheOptions
+                                        loadOptions={this.callApiP}
+                                        onChange={(data) => {
+                                            this.setselectDataP(data);
+                                        }}
+                                        value={this.state.selectDataP}
+                                        defaultOptions
+                                    />
                                 </div>
                                 <br></br>
-        
+
 
                                 <div className="col-md-8  center">
-                                       
+
                                 </div>
                                 <br></br>
-                                
+
                                 <div className="form-row ">
                                     <div className="form-group center" >
                                         <button type="button" className="btn btn-success btn-space"
                                             onClick={this.buscar}>Buscar</button>
                                         <button type="button" className="btn btn-primary btn-space"
-                                         onClick={this.prepareCadastrar}>Novo Atendimento
-                                       </button>
+                                            onClick={this.prepareCadastrar}>Novo Atendimento
+                                        </button>
                                     </div>
                                 </div>
                                 <br></br>
@@ -202,23 +208,23 @@ class listaAtendimentos extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {
-                                    this.state.atendimentos.map(
-                                        atendimento =>
-                                            <tr className="table-primary">
-                                                <th scope="row">{atendimento.id_atendimento}</th>
-                                                <td>{atendimento.data}</td>
-                                                <td>{atendimento.paciente.nome}</td>
-                                                <td>{atendimento.profissional.nome}</td>
-                                                <td>
-                                                    <button type="button" className="btn btn-warning btn-space"
-                                                        onClick={() => this.editar(atendimento.id_atendimento)}>Editar</button>
-                                                    <button type="button" className="btn btn-danger btn-space"
-                                                        onClick={() => this.excluir(atendimento.id_atendimento)}>Excluir</button>
-                                                </td>
-                                            </tr>
-                                    )
-                                }
+                                        {
+                                            this.state.atendimentos.map(
+                                                atendimento =>
+                                                    <tr className="table-primary">
+                                                        <th scope="row">{atendimento.id_atendimento}</th>
+                                                        <td>{atendimento.data}</td>
+                                                        <td>{atendimento.paciente.nome}</td>
+                                                        <td>{atendimento.profissional.nome}</td>
+                                                        <td>
+                                                            <button type="button" className="btn btn-warning btn-space"
+                                                                onClick={() => this.editar(atendimento.id_atendimento)}>Editar</button>
+                                                            <button type="button" className="btn btn-danger btn-space"
+                                                                onClick={() => this.excluir(atendimento.id_atendimento)}>Excluir</button>
+                                                        </td>
+                                                    </tr>
+                                            )
+                                        }
                                     </tbody>
                                 </table>
                             </fieldset>

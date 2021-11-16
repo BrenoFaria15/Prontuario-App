@@ -34,6 +34,11 @@ class ApiService{
         const requestUrl= `${this.apiurl}${url}`
         return httpClient.get(requestUrl,objeto);
     }
+
+    getPorConsulta(url,params){
+        const requestUrl=`${this.apiurl}${url}${params}`
+        return httpClient.get(requestUrl);
+    }
 }
 
 

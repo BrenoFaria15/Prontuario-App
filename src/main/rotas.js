@@ -16,6 +16,7 @@ import ListaExames from "../views/listaExames";
 import CadastroExame from "../views/cadastroExames";
 import LancarExame from "../views/lancarExame";
 import NovoAtendimento from "../views/novoAtendimento";
+import Consulta from "../views/consulta";
 
 
 function Rotas(){
@@ -38,6 +39,8 @@ function Rotas(){
                 <Route  exact path="/exames/cadastro/:id" component={CadastroExame}/>
                 <Route  exact path="/exames/lancarexame/:id" component={LancarExame}/>
                 <Route  exact path="/atendimentos/novo/:id" component={NovoAtendimento}/>
+                <Route  exact path="/atendimentos/consulta/:id" component={Consulta}/>
+
             </Switch>
          </HashRouter>   
         </> 

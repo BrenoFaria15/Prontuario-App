@@ -8,8 +8,10 @@ class AtendimentoService extends ApiService{
     }
 
     consultar(atendimentoFiltro){
+       
 
         let params = `?data=${atendimentoFiltro.data}`
+
 
         if(atendimentoFiltro.idPaciente){
             params=`${params}&idPaciente=${atendimentoFiltro.idPaciente}`
@@ -18,11 +20,19 @@ class AtendimentoService extends ApiService{
             params=`${params}&idProfissional=${atendimentoFiltro.idProfissional}`
         }
     
-        return this.get(params)
+        return this.getPorConsulta('/buscaratendimentos',params)
     }
     
     salvar(atendimento){
         return this.post('/',atendimento)
+    }
+
+    atualizar(atendimento){
+        return this.put('/'+atendimento.id_atendimento,atendimento)
+    }
+
+    buscarPorId(id){
+        return this.getPorId('/buscarporid/'+id)
     }
     
 

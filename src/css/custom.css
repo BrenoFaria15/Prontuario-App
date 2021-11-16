@@ -126,3 +126,38 @@
         margin-right: auto;
         text-align: center;
     }
+
+    .numAntrop{
+        padding-top: 50px;
+        border-width: 3px;
+        border-style: solid;
+        border-color: #2FA4E7;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding-bottom: 50px;
+       
+    }
+    
+    .cardEntClinica{
+        padding-top: 50px;
+        border-width: 3px;
+        border-style: solid;
+        border-color: #2FA4E7;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding-bottom: 50px;
+    }
+    
+    .formcadconsulta{
+        text-align: center;
+        background-color: #ECF0F1;
+        padding: 30px;
+        border-radius: 10px;
+        width: 450px;
+        margin: auto;
+        width: 70%;
+    }

@@ -158,7 +158,6 @@ class NovoAtendimento extends React.Component {
             profissional: this.state.id_profissional,
             unidade:7,
             usuario:16
-
         }
 
         if(this.state.id_atendimento==="_add"){
@@ -246,14 +245,14 @@ class NovoAtendimento extends React.Component {
                                         <div className="form-group ">
                                             <label htmlFor="exampleInputEmail1">Data </label>
                                             <input type="date" className="form-control" id="exampleInputEmail1"
-                                            value={this.state.data} onChange={e => this.setState({ data: e.target.value })}></input>
+                                            value={this.state.data} onChange={e => this.setState({data: e.target.value })}></input>
                                         </div>
                                     </div>
                                     <div className="col-md-2  center">
                                         <div className="form-group">
                                             <label htmlFor="exampleInputEmail1">Hora</label>
                                             <input type="time" className="form-control" id="exampleInputEmail1"
-                                            value={this.state.hora} onChange={e => this.setState({ hora: e.target.value })}></input>
+                                            value={this.state.hora} onChange={e => this.setState({hora: e.target.value })}></input>
                                         </div>
                                     </div>
                                 </div>
