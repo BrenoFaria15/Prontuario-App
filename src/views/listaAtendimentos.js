@@ -4,6 +4,7 @@ import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
 import AtendimentoService from "../app/services/atendimentoServices";
 import AsyncSelect from 'react-select/async';
+import { mensagemErro, mensagemOk } from "../components/toastr"
 
 const INITIAL_DATA = {
     value: 0,
@@ -43,8 +44,6 @@ class listaAtendimentos extends React.Component {
             setselectDataP: INITIAL_DATAP,
             id_unidade:7,
             id_usuario:16
-
-    
 
         }
 
@@ -101,6 +100,17 @@ class listaAtendimentos extends React.Component {
 
     editar(id) {
         this.props.history.push("/atendimentos/consulta/" +id);
+    }
+
+    excluir(id){
+        this.service.deletar(id).then(
+            response =>{
+                this.props.history.push('/atendimentos');
+                mensagemOk('Atendimento Excluido com Sucesso');
+            }
+          ) .catch(error => {
+              mensagemErro(error.response.data)
+          }) 
     }
 
     handleSubmit() {

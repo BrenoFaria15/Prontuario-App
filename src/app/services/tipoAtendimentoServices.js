@@ -5,9 +5,7 @@ class TipoAtendimentoService extends ApiService{
         super('/api/tipoatendimentos')
     }
    
-    autenticar(credenciais){
-        return this.post('/autenticar',credenciais)
-    }
+
 
     salvar(tipoAtendimento){
         return this.post('/',tipoAtendimento)
@@ -23,7 +21,7 @@ class TipoAtendimentoService extends ApiService{
 
     buscarPorId(id){
         return this.getPorId('/buscarporid/'+id)
-    }
+    }   
 
     deletar(id){
         return this.delete('/'+id)

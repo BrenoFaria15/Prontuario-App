@@ -1,5 +1,5 @@
 .navbar{
-    padding: 30px;
+    padding: 10px;
     border-left-width: 0px;
     
 
@@ -160,4 +160,12 @@
         width: 450px;
         margin: auto;
         width: 70%;
+    }
+
+    .imagemlogo{
+        size:15px;
+    }
+
+    .sizeletra{
+        font-size: 20px;
     }

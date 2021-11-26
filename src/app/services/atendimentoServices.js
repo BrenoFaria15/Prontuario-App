@@ -34,6 +34,10 @@ class AtendimentoService extends ApiService{
     buscarPorId(id){
         return this.getPorId('/buscarporid/'+id)
     }
+
+    deletar(id){
+        return this.delete('/'+id)
+    }
     
 
 }

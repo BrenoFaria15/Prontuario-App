@@ -140,6 +140,10 @@ class NovoAtendimento extends React.Component {
         return msg
     }
 
+    cadastrarNovoTipoAtend = () =>{
+        this.props.history.push('/tipoatendimentos/') 
+    }
+
     cadastrar = () =>{
         const msg = this.validar();
 
@@ -236,7 +240,8 @@ class NovoAtendimento extends React.Component {
                                         }
                                         </select>
                                         <br></br>
-                                        <button type="button" className="btn btn-primary btn-space btn-sm botaotipoatend">Cadastrar Tipo de Atendimento</button>
+                                        <button type="button" className="btn btn-primary btn-space btn-sm botaotipoatend"
+                                       onClick={this.cadastrarNovoTipoAtend} >Cadastrar Tipo de Atendimento</button>
                                     </div>
                         
                                 </div>
