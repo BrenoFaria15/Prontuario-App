@@ -25,7 +25,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link sizeletra" href="#/usuarios/">Agenda</a>
+                <a className="nav-link sizeletra" href="#/agenda">Agenda</a>
               </li>
             
               <li className="nav-item active">

@@ -6,47 +6,73 @@ import { withRouter } from 'react-router-dom'
 import { mensagemErro, mensagemOk } from "../components/toastr"
 import ExameService from "../app/services/exameServices";
 
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
+
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+
 
 class ListaExames extends React.Component {
     state = {
-        exames: []
+        exames: [],
+        show:false,
+        deleteItem:null
     }
     constructor() {
         super();
         this.service = new ExameService();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getExames();
     }
-    editar(id){
-        this.props.history.push("/exames/cadastro/"+id);
+    editar(id) {
+        this.props.history.push("/exames/cadastro/" + id);
     }
-    getExames(){
+    getExames() {
         this.service.buscarTodos().then(
             (response) =>
-               this.setState({exames:response.data}));
+                this.setState({ exames: response.data }));
     }
 
-    prepareCadastrar= () =>{
+    prepareCadastrar = () => {
         this.props.history.push('/exames/cadastro/_add')
     }
-    excluir(id){
+    excluir(id) {
         this.service.deletar(id).then(
-          response =>{
-              this.props.history.push('/exames');
-              mensagemOk('Exame Excluido com Sucesso');
-              this.getExames();
-          }
-        ) .catch(error => {
+            response => {
+                this.props.history.push('/exames');
+                mensagemOk('Exame Excluido com Sucesso');
+                this.getExames();
+                this.setState({show:false})
+            }
+        ).catch(error => {
             mensagemErro(error.response.data)
-        }) 
+        })
     }
 
-    lancarExame =()=>{
+    cancelarDelete = () =>{
+        this.setState({show:false,deleteItem:null})
+    }
+
+    lancarExame = () => {
         this.props.history.push('/exames/lancarexame/_add')
     }
+
+    abrirConfirmar = (item) =>{
+        this.setState({show:true,deleteItem:item})
+    }
     render() {
+
+        const confirmarDelete =(
+            <div>
+                <Button label="Não" icon="pi pi-times" onClick={() =>  this.cancelarDelete()}className="p-button-text" />
+                <Button label="Sim" icon="pi pi-check" onClick={() =>  this.excluir(this.state.deleteItem)} autoFocus />
+            </div>
+            
+        )
         return (
             <div className="container-fluid">
                 <div className="formcad">
@@ -85,14 +111,23 @@ class ListaExames extends React.Component {
                                                     <button type="button" className="btn btn-warning btn-space"
                                                         onClick={() => this.editar(exame.id_exame)}>Editar</button>
                                                     <button type="button" className="btn btn-danger btn-space"
-                                                        onClick={() => this.excluir(exame.id_exame)}>Excluir</button>
+                                                        onClick={() => this.abrirConfirmar(exame.id_exame)}>Excluir</button>
                                                 </td>
                                             </tr>
                                     )
                                 }
                             </tbody>
                         </table>
+                        <div>
+                            <Dialog header="" 
+                            visible={this.state.show} 
+                            style={{ width: '50vw' }} 
+                            footer={confirmarDelete} 
+                            onHide={() => this.setState({show:false})}>
+                                <p>Confirmar Exlcusão?</p>
+                            </Dialog>
 
+                        </div>
                     </div>
 
                 </div>

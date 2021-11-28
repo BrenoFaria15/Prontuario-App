@@ -28,6 +28,10 @@ class ResultadoExameService extends ApiService{
         return this.delete('/'+id)
     }
 
+    buscarPorPaciente(paciente){
+        return this.getPorId('/buscarporpaciente/'+paciente)
+    }
+
 }
 
 export default ResultadoExameService

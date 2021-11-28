@@ -33,6 +33,7 @@ class LancarExame extends React.Component {
         this.service=new ResultadoExameService();
         this.state = {
             id_resultado: props.match.params.id,
+            data:'',
             resultado: '',
             id_exame: null,
             id_paciente:null,
@@ -119,7 +120,8 @@ class LancarExame extends React.Component {
         const resultadoExame = {
             resultado: this.state.resultado,
             id_exame: this.state.id_exame,
-            id_paciente: this.state.id_paciente
+            id_paciente: this.state.id_paciente,
+            data:this.state.data
         }
 
         if (this.state.id_resultado === "_add") {
@@ -155,6 +157,13 @@ class LancarExame extends React.Component {
                     <div className="lista">
                         <legend >Lançar Resultado de Exame</legend>
                         <br></br>
+                        <div className="col-md-4 center ">
+                                <div className="form-group ">
+                                    <label htmlFor="exampleInputEmail1">Data</label>
+                                    <input type="date" className="form-control" id="exampleInputEmail1"
+                                        value={this.state.data} onChange={e => this.setState({ data: e.target.value })}></input>
+                                </div>
+                            </div>
                         <br></br>
                         <div className="col-md-8  center">
                             <AsyncSelect

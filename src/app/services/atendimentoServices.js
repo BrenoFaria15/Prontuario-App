@@ -38,6 +38,10 @@ class AtendimentoService extends ApiService{
     deletar(id){
         return this.delete('/'+id)
     }
+
+    buscarPorPaciente(id){
+        return this.getPorId('/buscarporpaciente/'+id)
+    }
     
 
 }

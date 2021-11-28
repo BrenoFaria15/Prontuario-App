@@ -3,14 +3,12 @@ import 'bootswatch/dist/cerulean/bootstrap.css';
 import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import  '../css/custom.css'
 import imagemHome from '../css/home.png'
-class Home extends React.Component{
-    
-    constructor() {
-        super();
-        
-    }
+import NavbarPublico from "../components/navbarPublico";
+class HomePublico extends React.Component{
     render(){
         return(
+            <>
+            <NavbarPublico/>
             <div className="container-fluid">
                 <div className="formcad">
                     <div className="home">
@@ -19,8 +17,9 @@ class Home extends React.Component{
 
                 </div>   
             </div>
+            </>
         )
     }
 }
 
-export default Home
+export default HomePublico

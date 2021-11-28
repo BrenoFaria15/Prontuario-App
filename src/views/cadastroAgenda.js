@@ -2,13 +2,9 @@ import React from "react";
 import 'bootswatch/dist/cerulean/bootstrap.css';
 import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
-import { withRouter } from 'react-router-dom'
+import AgendaService from "../app/services/agendaServices";
 import AsyncSelect from 'react-select/async';
-import AtendimentoService from "../app/services/atendimentoServices";
-import TipoAtendimentoService from "../app/services/tipoAtendimentoServices";
 import { mensagemErro, mensagemOk } from "../components/toastr"
-import LocalStorageService from "../app/services/localStorageService";
-
 
 const INITIAL_DATA = {
     value: 0,
@@ -33,37 +29,95 @@ const mapResponseToValuesAndLabelsP = (data) => ({
 });
 
 
-class NovoAtendimento extends React.Component {
+class CadastroAgenda extends React.Component{
 
-    
     constructor(props) {
         
         super(props);
-        this.service = new AtendimentoService();
-        this.tipoAtendService = new TipoAtendimentoService();
+        this.service = new AgendaService();
         this.state = {
-            id_atendimento:props.match.params.id,
+            id_agenda:props.match.params.id,
             data: '',
             hora:'',
             nomePaciente: '',
-            nomeProfissional: '',
-            id_tipo_atendimento:null,
-            atendimentos: [],
-            tipoAtendimentos:[],
+            nomeProfissional: '', 
             id_paciente: null,
             id_profissional:null,
+            id_usuario:null,
+            id_unidade:null,
             selectData: INITIAL_DATA,
             setselectData: INITIAL_DATA,
             selectDataP:INITIAL_DATAP,
             setselectDataP: INITIAL_DATAP,
-            tipoAtendNome:'Selecione o Tipo do Atendimento'
+            flg_presente:false
     
         }
     }
 
-    componentDidMount(){
-        this.getTipoAtend();
+
+    validar(){
+        const msg = []
+
+        if (!this.state.id_paciente) {
+            msg.push("Selecione um Paciente")
+        }
+        if (!this.state.id_profissional) {
+            msg.push("Selecione um Profissional")
+        }
+        if (!this.state.hora) {
+            msg.push("Selecione um Horário")
+        }
+        if (!this.state.data) {
+            msg.push("Selecione uma Data")
+        }
+
+        return msg
     }
+
+    cadastrar = () =>{
+        const msg = this.validar();
+
+        if(msg && msg.length>0){
+            msg.forEach((msg, index) => {
+                mensagemErro(msg);
+            } );
+            return false;
+        }
+
+        const agenda ={
+            data: this.state.data,
+            hora:this.state.hora,
+            horaInicio: this.state.hora,
+            paciente: this.state.id_paciente,
+            profissional: this.state.id_profissional,
+            unidade:7,
+            usuario:1,
+            flg_presente:this.state.flg_presente
+        }
+
+        if(this.state.id_agenda==="_add"){
+        this.service.salvar(agenda).then(response =>{
+            mensagemOk('Agendado com Sucesso!')
+            this.props.history.push('/agenda') 
+        }).catch(error =>{
+            mensagemErro(error.response.data)
+        })}else{
+            agenda.id_agenda = this.state.id_agenda
+            this.service.atualizar(agenda).then(
+                response =>{
+                     mensagemOk('Agendamento Editado com Sucesso')
+                     this.props.history.push('/agenda') 
+                }
+            ).catch(
+                error =>{
+                    mensagemErro(error.response.data)
+                }
+            )
+        }
+        console.log(this.state)
+    } 
+
+
 
     async callApi(value) {
         const data = await fetch(`http://localhost:8080/api/pacientes/all`)
@@ -106,12 +160,6 @@ class NovoAtendimento extends React.Component {
         )
     }
 
-    getTipoAtend(){
-        this.tipoAtendService.buscarTodos().then(
-            (response) =>
-               this.setState({tipoAtendimentos:response.data}));
-    }
-
     setselectDataP(data) {
         this.setState({
             selectDataP: data,
@@ -121,78 +169,19 @@ class NovoAtendimento extends React.Component {
         )
     }
 
-
-    cancelarCadastro = () =>{
-        this.props.history.push('/atendimentos')
+    cancelarCadastro = () => {
+        this.props.history.push('/agenda')
     }
 
-    validar(){
-        const msg = []
-        if (!this.state.id_tipo_atendimento ||  this.state.id_tipo_atendimento==="Selecione") {
-            msg.push("Selecione um Tipo de Atendimento")
-        }
-        if (!this.state.id_paciente) {
-            msg.push("Selecione um Paciente")
-        }
-        if (!this.state.id_profissional) {
-            msg.push("Selecione um Profissional")
-        }
 
-        return msg
-    }
-
-    cadastrarNovoTipoAtend = () =>{
-        this.props.history.push('/tipoatendimentos/') 
-    }
-
-    cadastrar = () =>{
-        const msg = this.validar();
-
-        if(msg && msg.length>0){
-            msg.forEach((msg, index) => {
-                mensagemErro(msg);
-            } );
-            return false;
-        }
-
-        const atendimento ={
-            data: this.state.data,
-            horaInicio: this.state.hora,
-            tipoatendimento:this.state.id_tipo_atendimento,
-            paciente: this.state.id_paciente,
-            profissional: this.state.id_profissional,
-            unidade:7,
-            usuario:1
-        }
-
-        if(this.state.id_atendimento==="_add"){
-        this.service.salvar(atendimento).then(response =>{
-            mensagemOk('Atendimento Cadastrado !')
-            this.props.history.push('/atendimentos') 
-        }).catch(error =>{
-            mensagemErro(error.response.data)
-        })}else{
-            atendimento.id_atendimento = this.state.id_atendimento
-            this.service.atualizar(atendimento).then(
-                response =>{
-                     mensagemOk('Atendimento Editado com Sucesso')
-                     this.props.history.push('/atendimentos') 
-                }
-            ).catch(
-                error =>{
-                    mensagemErro(error.response.data)
-                }
-            )
-        }
-        console.log(this.state)
-    } 
-
-    render() {
-        return (
+    render(){
+        return(
             <div className="container-fluid">
                 <div className="formcad">
                     <div className="formcadastrouni">
-                        <legend>Novo Atendimento</legend>
+                        <legend>Agendamento</legend>
+                        <br></br>
+                        <br></br>
                         <form>
                             <fieldset>
                                 <div className="form-row">
@@ -226,26 +215,6 @@ class NovoAtendimento extends React.Component {
                                     </div>
                                 </div>
                                 <br></br>
-                                <div className="form-row">
-                                    <div className="form-group col-md-4 center">
-                                        <label htmlFor="exampleSelect1">Tipo de Atendimento</label>
-                                        <select className="form-select" id="exampleSelect1" onChange={e => this.setState({id_tipo_atendimento: e.target.value})} >
-                                            <option value={0} className="center">Selecione</option>{
-                                            
-                                            this.state.tipoAtendimentos.map(
-                                                tipoAtend =>         
-                                               <option value={tipoAtend.id_tipo_atendimento} className="center">{tipoAtend.tipoNome}</option>
-                                            )
-
-                                            
-                                        }
-                                        </select>
-                                        <br></br>
-                                        <button type="button" className="btn btn-primary btn-space btn-sm botaotipoatend"
-                                       onClick={this.cadastrarNovoTipoAtend} >Cadastrar Tipo de Atendimento</button>
-                                    </div>
-                        
-                                </div>
                                 <div className="form-row ">
                                     <div className="col-md-2 center">
                                         <div className="form-group ">
@@ -274,8 +243,10 @@ class NovoAtendimento extends React.Component {
                     </div>
                 </div>
             </div>
+
+
         )
     }
 }
 
-export default withRouter(NovoAtendimento)
+export default CadastroAgenda

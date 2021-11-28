@@ -30,6 +30,11 @@ class PacienteService extends ApiService{
         return this.delete('/'+id)
     }
 
+    buscarPorCns(cns){
+        let params = `?cns=${cns}`
+        return this.getPorConsulta('/buscarporcns/',params)
+    }
+
 }
 
 export default PacienteService
