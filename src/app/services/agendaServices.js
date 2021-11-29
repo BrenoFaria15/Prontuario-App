@@ -31,6 +31,9 @@ class AgendaServices extends ApiService{
         return this.getPorId('/buscarpordata/'+data)
     }
 
+    buscarPorPaciente(id){
+        return this.getPorId('/buscarporpaciente/'+id)
+    }
 
 }
 

@@ -5,6 +5,10 @@ import '../css/custom.css'
 import AtendimentoService from "../app/services/atendimentoServices";
 import AsyncSelect from 'react-select/async';
 import { mensagemErro, mensagemOk } from "../components/toastr"
+import LocalStorageService from "../app/services/localStorageService";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass,faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 
 class HistoricoLista extends React.Component{
     constructor(props) {
@@ -14,8 +18,7 @@ class HistoricoLista extends React.Component{
             id_atendimento:props.match.params.id,
             id_paciente:null,
             atendimentos: [],
-            id_unidade:7,
-            id_usuario:16
+            
 
         }
 
@@ -44,7 +47,8 @@ class HistoricoLista extends React.Component{
     }
 
     voltar = () =>{
-        this.props.history.push('/atendimentos/consulta/historico/lista/'+this.state.id_paciente)
+        let consulta = LocalStorageService.obterItem('_ultima_consulta')
+        this.props.history.push('/atendimentos/consulta/'+consulta)
     }
 
     render(){
@@ -58,6 +62,8 @@ class HistoricoLista extends React.Component{
                             <h6>Historico</h6>
 
                             <br></br>
+                            <button type="button" className="btn btn-danger btn-space  " title="Voltar"
+                                onClick={this.voltar}><FontAwesomeIcon icon={faChevronLeft} /></button>
 
                             
                             
@@ -82,8 +88,8 @@ class HistoricoLista extends React.Component{
                                                     <td>{atendimento.paciente.nome}</td>
                                                     <td>{atendimento.profissional.nome}</td>
                                                     <td>
-                                                        <button type="button" className="btn btn-primary btn-space"
-                                                            onClick={() => this.editar(atendimento.id_atendimento)}>Ver Consulta</button>
+                                                        <button type="button" className="btn btn-primary btn-space" title="Ver Consulta"
+                                                            onClick={() => this.editar(atendimento.id_atendimento)}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                                                     </td>
                                                 </tr>
                                         )

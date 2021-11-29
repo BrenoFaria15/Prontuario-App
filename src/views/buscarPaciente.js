@@ -3,6 +3,7 @@ import NavbarPublico from "../components/navbarPublico"
 import PacienteService from "../app/services/pacienteServices";
 import { mensagemErro, mensagemOk } from "../components/toastr"
 import LocalStorageService from "../app/services/localStorageService"
+import NavbarLoginPublico from "../components/navbarLoginPublico";
 
 class BuscarPaciente extends React.Component {
     state = {
@@ -29,7 +30,7 @@ class BuscarPaciente extends React.Component {
     render() {
         return (
             <>
-                <NavbarPublico />
+                <NavbarLoginPublico />
                 <div className="container-fluid">
                     <form className="formlogin">
                         <div className="card center" >

@@ -7,6 +7,9 @@ import AsyncSelect from 'react-select/async';
 import { mensagemErro, mensagemOk } from "../components/toastr"
 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass,faPlus} from '@fortawesome/free-solid-svg-icons'
+
 class ListaAgenda extends React.Component {
     state = {
     
@@ -81,10 +84,10 @@ class ListaAgenda extends React.Component {
                         <br></br>
                         <br></br>
                         <div className="form-group center" >
-                            <button type="button" className="btn btn-success btn-space"
-                                onClick={() => this.BuscarAgendados(this.state.data)}>Buscar Agendados</button>
-                            <button type="button" className="btn btn-primary btn-space"
-                                onClick={this.prepareCadastrar}>Novo Agendamento</button>
+                            <button type="button" className="btn btn-success btn-space" title="Buscar Agendados"
+                                onClick={() => this.BuscarAgendados(this.state.data)}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                            <button type="button" className="btn btn-primary btn-space" title="Buscar Agendamentos"
+                                onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         </div>
                         <br></br>
                         <br></br>
@@ -93,6 +96,7 @@ class ListaAgenda extends React.Component {
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Confirmação</th>
+                                    <th scope="col">Hora</th>
                                     <th scope="col">Paciente</th>
                                     <th scope="col">Profissional</th>
                                     <th scope="col">Ações</th>
@@ -107,6 +111,7 @@ class ListaAgenda extends React.Component {
                                             </input>
                                             
                                             </th>
+                                            <td>{agenda.hora}</td>
                                             <td>{agenda.paciente.nome}</td>
                                             <td>{agenda.profissional.nome}</td>
                                             <td>

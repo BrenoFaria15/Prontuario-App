@@ -82,6 +82,10 @@
     float:left;
 }
 
+.leftnav{
+    margin-left: 5px;
+}
+
 .leftbig{
     float:left;
     width: 390px;

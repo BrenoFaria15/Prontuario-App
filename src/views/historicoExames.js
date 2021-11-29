@@ -10,19 +10,21 @@ import ResultadoExameService from "../app/services/resultadoExameServices";
 import LocalStorageService from "../app/services/localStorageService";
 
 
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass,faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 
 import { Dialog } from 'primereact/dialog';
-class ExamesLista extends React.Component {
-    state = {
-        exames: [],
-        show: false,
-        resultado:''
-    }
-    constructor() {
-        super();
+class HistoricoExames extends React.Component {
+    
+    constructor(props) {
+       
+        super(props);
+        this.state = {
+            id_paciente:props.match.params.id,
+            exames: [],
+            show: false,
+            resultado:''
+        }
         this.service = new ResultadoExameService();
     }
 
@@ -32,9 +34,8 @@ class ExamesLista extends React.Component {
 
 
     getExames() {
-        const paciente = LocalStorageService.obterItem('_paciente_logado');
-        console.log(paciente)
-        this.service.buscarPorPaciente(paciente.id_paciente).then(
+        
+        this.service.buscarPorPaciente(this.state.id_paciente).then(
             (response) =>
                 this.setState({ exames: response.data }));
     }
@@ -51,14 +52,22 @@ class ExamesLista extends React.Component {
         })
     }
 
+    voltar = () =>{
+        let consulta = LocalStorageService.obterItem('_ultima_consulta')
+        this.props.history.push('/atendimentos/consulta/'+consulta)
+    }
 
     render() {
         return (
             <>
-                <NavbarPublico />
+                
                 <div className="formcad">
                     <div className="lista">
                     <legend >Resultados de Exames</legend>  
+                    <br></br>
+                    <br></br>
+                    <button type="button" className="btn btn-danger btn-space  " title="Voltar"
+                                onClick={this.voltar}><FontAwesomeIcon icon={faChevronLeft} /></button>
                     <br></br>
                     <br></br>
                         <table className="table table-hover"> 
@@ -107,4 +116,4 @@ class ExamesLista extends React.Component {
     }
 }
 
-export default ExamesLista
+export default HistoricoExames

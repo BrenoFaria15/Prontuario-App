@@ -7,9 +7,18 @@ import tipoAtendimentoService from "../app/services/tipoAtendimentoServices";
 import { mensagemErro, mensagemOk } from "../components/toastr"
 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare,faTrashCan,faPlus,faChevronLeft} from '@fortawesome/free-solid-svg-icons'
+
+
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
+
 class TipoAtendimentoLista extends React.Component {
     state = {
-        tipoAtendimentos: []
+        tipoAtendimentos: [],
+        show: false,
+        deleteItem:null
     }
     constructor() {
         super();
@@ -26,7 +35,7 @@ class TipoAtendimentoLista extends React.Component {
         this.props.history.push('/tipoatendimentos/cadastro/' + id);
     }
 
-    getTipoAtendimentos(){
+    getTipoAtendimentos() {
         this.service.buscarTodos().then(
             (response) =>
                 this.setState({ tipoAtendimentos: response.data }));
@@ -35,7 +44,7 @@ class TipoAtendimentoLista extends React.Component {
     prepareCadastrar = () => {
         this.props.history.push('/tipoatendimentos/cadastro/_add')
     }
-    voltar = () =>{
+    voltar = () => {
         this.props.history.push('/atendimentos/novo/_add')
     }
 
@@ -45,12 +54,28 @@ class TipoAtendimentoLista extends React.Component {
                 this.props.history.push('/tipoatendimentos');
                 mensagemOk("Tipo de Atendimento Excluido com Sucesso");
                 this.getTipoAtendimentos();
+                this.setState({show:false})
             }
         ).catch(error => {
             mensagemErro(error.response.data)
         })
     }
+
+    cancelarDelete = () =>{
+        this.setState({show:false,deleteItem:null})
+    }
+
+    abrirConfirmar = (item) =>{
+        this.setState({show:true,deleteItem:item})
+    }
     render() {
+        const confirmarDelete = (
+            <div>
+                <Button label="Não" icon="pi pi-times" onClick={() => this.cancelarDelete()} className="p-button-text" />
+                <Button label="Sim" icon="pi pi-check" onClick={() => this.excluir(this.state.deleteItem)} autoFocus />
+            </div>
+
+        )
         return (
             <div className="container-fluid">
                 <div className="formcad">
@@ -58,10 +83,10 @@ class TipoAtendimentoLista extends React.Component {
                         <legend >Tipo de Atendimentos</legend>
                         <br></br>
                         <br></br>
-                        <button type="button" className="btn btn-danger btn-space "
-                            onClick={this.voltar}>voltar</button>
-                        <button type="button" className="btn btn-primary "
-                            onClick={this.prepareCadastrar}>Novo</button>
+                        <button type="button" className="btn btn-danger btn-space " title="Voltar"
+                            onClick={this.voltar}><FontAwesomeIcon icon={faChevronLeft} /></button>
+                        <button type="button" className="btn btn-primary " title="Novo Tipo de Atendimento"
+                            onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         <br></br>
                         <br></br>
                         <table className="table table-hover">
@@ -82,10 +107,10 @@ class TipoAtendimentoLista extends React.Component {
                                                 <td>{tipo.tipoNome}</td>
                                                 <td>{tipo.descricao}</td>
                                                 <td>
-                                                    <button type="button" className="btn btn-warning btn-space"
-                                                        onClick={() => this.editar(tipo.id_tipo_atendimento)}>Editar</button>
-                                                    <button type="button" className="btn btn-danger btn-space"
-                                                        onClick={() => this.excluir(tipo.id_tipo_atendimento)}>Excluir</button>
+                                                    <button type="button" className="btn btn-warning btn-space" title="Editar"
+                                                        onClick={() => this.editar(tipo.id_tipo_atendimento)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                                                    <button type="button" className="btn btn-danger btn-space" title="Excluir"
+                                                        onClick={() => this.abrirConfirmar(tipo.id_tipo_atendimento)}><FontAwesomeIcon icon={faTrashCan} /></button>
                                                 </td>
 
                                             </tr>
@@ -93,6 +118,16 @@ class TipoAtendimentoLista extends React.Component {
                                 }
                             </tbody>
                         </table>
+                        <div>
+                            <Dialog header="Confirmar Exclusão?"
+                                visible={this.state.show}
+                                style={{ width: '50vw' }}
+                                footer={confirmarDelete}
+                                onHide={() => this.setState({ show: false })}>
+
+                            </Dialog>
+
+                        </div>
 
                     </div>
 

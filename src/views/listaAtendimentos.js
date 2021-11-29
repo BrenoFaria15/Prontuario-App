@@ -6,6 +6,13 @@ import AtendimentoService from "../app/services/atendimentoServices";
 import AsyncSelect from 'react-select/async';
 import { mensagemErro, mensagemOk } from "../components/toastr"
 
+import LocalStorageService from "../app/services/localStorageService";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserDoctor,faTrashCan,faMagnifyingGlass,faPlus} from '@fortawesome/free-solid-svg-icons'
+
+
+
 const INITIAL_DATA = {
     value: 0,
     label: 'Selecione o Paciente',
@@ -53,10 +60,12 @@ class listaAtendimentos extends React.Component {
 
 
     buscar = () => {
+        let unidade=LocalStorageService.obterItem('_unidade_logada')
         const atendimentoFiltro = {
             data: this.state.data,
             idPaciente: this.state.id_paciente,
             idProfissional: this.state.id_profissional,
+            idUnidade:unidade.id_unidade
         }
         this.service.consultar(atendimentoFiltro).then(
             response => {
@@ -99,6 +108,7 @@ class listaAtendimentos extends React.Component {
  </div>*/
 
     editar(id) {
+        LocalStorageService.adicionarItem('_ultima_consulta',id)
         this.props.history.push("/atendimentos/consulta/" +id);
     }
 
@@ -198,10 +208,10 @@ class listaAtendimentos extends React.Component {
 
                                 <div className="form-row ">
                                     <div className="form-group center" >
-                                        <button type="button" className="btn btn-success btn-space"
-                                            onClick={this.buscar}>Buscar</button>
-                                        <button type="button" className="btn btn-primary btn-space"
-                                            onClick={this.prepareCadastrar}>Novo Atendimento
+                                        <button type="button" className="btn btn-success btn-space" title="Buscar"
+                                            onClick={this.buscar}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                                        <button type="button" className="btn btn-primary btn-space" title="Novo Atendimento"
+                                            onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} />
                                         </button>
                                     </div>
                                 </div>
@@ -211,6 +221,7 @@ class listaAtendimentos extends React.Component {
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
+                                            <th scope="col">Consulta</th>
                                             <th scope="col">Data</th>
                                             <th scope="col">Paciente</th>
                                             <th scope="col">Profissional</th>
@@ -223,14 +234,19 @@ class listaAtendimentos extends React.Component {
                                                 atendimento =>
                                                     <tr className="table-primary">
                                                         <th scope="row">{atendimento.id_atendimento}</th>
+                                                        <td><input class="form-check-input" checked={atendimento.flg_atendido} readOnly="true" type="checkbox" value="" id="flexCheckDefault">
+                                                       </input>
+                                                        </td>
                                                         <td>{atendimento.data}</td>
                                                         <td>{atendimento.paciente.nome}</td>
                                                         <td>{atendimento.profissional.nome}</td>
                                                         <td>
-                                                            <button type="button" className="btn btn-warning btn-space"
-                                                                onClick={() => this.editar(atendimento.id_atendimento)}>Editar</button>
-                                                            <button type="button" className="btn btn-danger btn-space"
-                                                                onClick={() => this.excluir(atendimento.id_atendimento)}>Excluir</button>
+                                                        
+                                                            <button type="button" className="btn btn-success btn-space" title="Consultar"
+                                                                onClick={() => this.editar(atendimento.id_atendimento)}><FontAwesomeIcon icon={faUserDoctor} /></button>
+                                                                
+                                                            <button type="button" className="btn btn-danger btn-space"  title="Excluir"
+                                                                onClick={() => this.excluir(atendimento.id_atendimento)}><FontAwesomeIcon icon={faTrashCan} /></button>
                                                         </td>
                                                     </tr>
                                             )

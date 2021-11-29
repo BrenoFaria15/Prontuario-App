@@ -155,14 +155,17 @@ class NovoAtendimento extends React.Component {
             return false;
         }
 
+        let usuario = LocalStorageService.obterItem('_usuario_logado')
+        let unidade = LocalStorageService.obterItem('_unidade_logada')
+
         const atendimento ={
             data: this.state.data,
             horaInicio: this.state.hora,
             tipoatendimento:this.state.id_tipo_atendimento,
             paciente: this.state.id_paciente,
             profissional: this.state.id_profissional,
-            unidade:7,
-            usuario:1
+            unidade:unidade.id_unidade,
+            usuario:usuario.id_usuario
         }
 
         if(this.state.id_atendimento==="_add"){

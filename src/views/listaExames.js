@@ -13,6 +13,10 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare,faTrashCan,faPlus} from '@fortawesome/free-solid-svg-icons'
+
+
 
 class ListaExames extends React.Component {
     state = {
@@ -53,12 +57,12 @@ class ListaExames extends React.Component {
         })
     }
 
-    cancelarDelete = () =>{
-        this.setState({show:false,deleteItem:null})
-    }
-
     lancarExame = () => {
         this.props.history.push('/exames/lancarexame/_add')
+    }
+
+    cancelarDelete = () =>{
+        this.setState({show:false,deleteItem:null})
     }
 
     abrirConfirmar = (item) =>{
@@ -108,10 +112,10 @@ class ListaExames extends React.Component {
                                                 <td>{exame.codSus}</td>
                                                 <td>{exame.nome}</td>
                                                 <td>
-                                                    <button type="button" className="btn btn-warning btn-space"
-                                                        onClick={() => this.editar(exame.id_exame)}>Editar</button>
-                                                    <button type="button" className="btn btn-danger btn-space"
-                                                        onClick={() => this.abrirConfirmar(exame.id_exame)}>Excluir</button>
+                                                    <button type="button" className="btn btn-warning btn-space" title="Editar"
+                                                        onClick={() => this.editar(exame.id_exame)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                                                    <button type="button" className="btn btn-danger btn-space" title="Excluir"
+                                                        onClick={() => this.abrirConfirmar(exame.id_exame)}><FontAwesomeIcon icon={faTrashCan} /></button>
                                                 </td>
                                             </tr>
                                     )
@@ -119,12 +123,12 @@ class ListaExames extends React.Component {
                             </tbody>
                         </table>
                         <div>
-                            <Dialog header="" 
+                            <Dialog header="Confirmar Exclusão?" 
                             visible={this.state.show} 
                             style={{ width: '50vw' }} 
                             footer={confirmarDelete} 
                             onHide={() => this.setState({show:false})}>
-                                <p>Confirmar Exlcusão?</p>
+                                
                             </Dialog>
 
                         </div>

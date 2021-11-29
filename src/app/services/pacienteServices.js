@@ -1,4 +1,11 @@
 import ApiService from "../apiservice";
+import axios from "axios";
+import {AxiosResponse} from "axios";
+
+
+
+
+
 
 
 class PacienteService extends ApiService{
@@ -33,6 +40,10 @@ class PacienteService extends ApiService{
     buscarPorCns(cns){
         let params = `?cns=${cns}`
         return this.getPorConsulta('/buscarporcns/',params)
+    }
+
+    gerarRelatorioPaciente (){
+       return this.getRelatorio('/relatorio-paciente')
     }
 
 }

@@ -2,60 +2,86 @@ import React from "react";
 import 'bootswatch/dist/cerulean/bootstrap.css';
 import 'bootswatch/dist/cerulean/bootstrap.min.css';
 import '../css/custom.css'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import ProfissionalService from "../app/services/profissionalServices";
-import {mensagemErro,mensagemOk } from "../components/toastr"
+import { mensagemErro, mensagemOk } from "../components/toastr"
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare,faTrashCan,faPlus} from '@fortawesome/free-solid-svg-icons'
+
+
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 class ListaProfissionais extends React.Component {
 
-    state ={
-        profissionais:[]
+    state = {
+        profissionais: [],
+        show: false,
+        deleteItem:null
     }
 
-    constructor(){
+    constructor() {
         super();
-        this.service= new ProfissionalService();
+        this.service = new ProfissionalService();
     }
-    prepareCadastrar= () =>{
+    prepareCadastrar = () => {
         this.props.history.push('/profissionais/cadastro/_add')
 
 
     }
-    excluir(id){
+    excluir(id) {
         this.service.deletar(id).then(
-          response =>{
-              this.props.history.push('/profissionais');
-              mensagemOk('Profissional Excluido com sucesso');
-              this.getProfissionais();
-          }
+            response => {
+                this.props.history.push('/profissionais');
+                mensagemOk('Profissional Excluido com sucesso');
+                this.getProfissionais();
+                this.setState({show:false})
+            }
         ).catch(error => {
             mensagemErro(error.response.data)
-        })   
-    } 
-    
-    componentDidMount(){
+        })
+    }
+
+    componentDidMount() {
         this.getProfissionais();
     }
-    getProfissionais(){
+    getProfissionais() {
         this.service.buscarTodos().then(
             (response) =>
-               this.setState({profissionais:response.data}));
+                this.setState({ profissionais: response.data }));
     }
 
-    editar(id){
-        this.props.history.push("/profissionais/cadastro/"+id);
-     }
+    editar(id) {
+        this.props.history.push("/profissionais/cadastro/" + id);
+    }
+
+    cancelarDelete = () =>{
+        this.setState({show:false,deleteItem:null})
+    }
+
+    abrirConfirmar = (item) =>{
+        this.setState({show:true,deleteItem:item})
+    }
 
     render() {
+        const confirmarDelete = (
+            <div>
+                <Button label="Não" icon="pi pi-times" onClick={() => this.cancelarDelete()} className="p-button-text" />
+                <Button label="Sim" icon="pi pi-check" onClick={() => this.excluir(this.state.deleteItem)} autoFocus />
+            </div>
+
+        )
         return (
             <div className="container-fluid">
                 <div className="formcad">
                     <div className="lista">
                         <legend >Profissionais</legend>
-                         <br></br>
-                         <br></br>
-                        <button type="button" className="btn btn-primary "
-                        onClick={this.prepareCadastrar}>Novo</button>
+                        <br></br>
+                        <br></br>
+                        <button type="button" className="btn btn-primary " title="Novo Profissional"
+                            onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         <br></br>
                         <br></br>
                         <table className="table table-hover">
@@ -70,28 +96,38 @@ class ListaProfissionais extends React.Component {
                             </thead>
                             <tbody>
                                 {
-                                this.state.profissionais.map(
-                                    profissional =>
-                                <tr className="table-primary">
-                                    <th scope="row">{profissional.id_profissional}</th>
-                                    <td>{profissional.nome}</td>
-                                    <td>{profissional.cpf}</td>
-                                    <td>{profissional.especialidade}</td>
-                                    <td>
-                                        <button type="button" className="btn btn-warning btn-space"
-                                        onClick={() =>this.editar(profissional.id_profissional)}>Editar</button>
-                                        <button type="button" className="btn btn-danger btn-space"
-                                        onClick={() =>this.excluir(profissional.id_profissional)}>Excluir</button>
-                                    </td>
+                                    this.state.profissionais.map(
+                                        profissional =>
+                                            <tr className="table-primary">
+                                                <th scope="row">{profissional.id_profissional}</th>
+                                                <td>{profissional.nome}</td>
+                                                <td>{profissional.cpf}</td>
+                                                <td>{profissional.especialidade}</td>
+                                                <td>
+                                                    <button type="button" className="btn btn-warning btn-space" title="Editar"
+                                                        onClick={() => this.editar(profissional.id_profissional)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                                                    <button type="button" className="btn btn-danger btn-space" title="Excluir"
+                                                        onClick={() => this.abrirConfirmar(profissional.id_profissional)}><FontAwesomeIcon icon={faTrashCan} /></button>
+                                                </td>
 
-                    
-                                </tr>
 
-                               ) 
-                               }
+                                            </tr>
+
+                                    )
+                                }
                             </tbody>
                         </table>
-                        
+                        <div>
+                            <Dialog header="Confirmar Exclusão?"
+                                visible={this.state.show}
+                                style={{ width: '50vw' }}
+                                footer={confirmarDelete}
+                                onHide={() => this.setState({ show: false })}>
+
+                            </Dialog>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -101,4 +137,4 @@ class ListaProfissionais extends React.Component {
     }
 }
 
-export default withRouter (ListaProfissionais)
+export default withRouter(ListaProfissionais)

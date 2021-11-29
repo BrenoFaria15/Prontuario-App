@@ -6,8 +6,10 @@ const  httpClient = axios.create({
 })
 
 class ApiService{
-    constructor(apiurl){
+    
+    constructor(apiurl,){
         this.apiurl=apiurl;
+        
     }
 
     post(url,objeto){
@@ -28,6 +30,14 @@ class ApiService{
     get(url){
         const requestUrl= `${this.apiurl}${url}`
         return httpClient.get(requestUrl);
+    }
+
+    getRelatorio(url){
+        const requestUrl= `${this.apiurl}${url}`
+        const response = httpClient.get(requestUrl,{responseType:"blob"});
+        //let bytes = response.data
+       // var newBlob = new Blob([bytes], {type: 'application/pdf'});
+        return  response.data
     }
 
     getPorId(url,objeto){

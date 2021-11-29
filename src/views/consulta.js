@@ -45,8 +45,8 @@ class Consulta extends React.Component {
             id_paciente: null,
             id_profissional: null,
             id_tipo_atendimento: null,
-            id_unidade: 7,
-            id_usuario: 16,
+            id_unidade: null,
+            id_usuario: null,
             data: '',
             hora:'',
             flg_atendido:null
@@ -90,16 +90,59 @@ class Consulta extends React.Component {
         )
     }
 
-    preencherIds = () => {
-        const data = this.state.atendimento
-        this.setState({
-            id_paciente: data.paciente.id_paciente,
-            id_profissional: data.profissional.id_profissional,
-            id_tipo_atendimento: data.tipoatendimento.id_tipo_atendimento,
-            data: data.data
-        })
+    salvar = () => {
+        var data = new Date()
+        var hora = data.getHours
+        var min = data.getMinutes
 
-        console.log(this.state.id_paciente)
+
+
+        var horaFinal = (data.getHours() + ":" + data.getMinutes())
+
+        const atendimento = {
+            peso: this.state.peso,
+            altura: this.state.altura,
+            imc: this.state.imc,
+            bpm: this.state.bpm,
+            temperatura: this.state.temperatura,
+            glicemia: this.state.glicemia,
+            saturacao: this.state.saturacao,
+            avaliacao: this.state.avaliacao,
+            hipotese: this.state.hipotese,
+            entrevistaClinica: this.state.entrevistaClinica,
+            cid: this.state.cid,
+            pressao1: this.state.pressao1,
+            pressao2: this.state.pressao2,
+            paciente: this.state.id_paciente,
+            profissional: this.state.id_profissional,
+            unidade: this.state.id_unidade,
+            usuario: this.state.id_usuario,
+            tipoatendimento: this.state.id_tipo_atendimento,
+            horaFim: horaFinal,
+            data: this.state.data,
+          
+        }
+
+        if (this.state.id_atendimento === "_add") {
+            this.service.salvar(atendimento).then(response => {
+                mensagemOk('Atendimento Salvo !')
+                
+            }).catch(error => {
+                mensagemErro(error.response.data)
+            })
+        } else {
+            atendimento.id_atendimento = this.state.id_atendimento
+            this.service.atualizar(atendimento).then(
+                response => {
+                    mensagemOk('Atendimento Salvo com Sucesso')
+                }
+            ).catch(
+                error => {
+                    mensagemErro(error.response.data)
+                }
+            )
+        }
+        console.log(this.state)
 
     }
 
@@ -179,6 +222,10 @@ class Consulta extends React.Component {
     historico = () =>{
         this.props.history.push('/atendimentos/consulta/historico/lista/'+this.state.id_atendimento)
     }
+
+    exames = () =>{
+        this.props.history.push('/atendimentos/consulta/historico/exames/'+this.state.id_paciente)
+    }
     cancelarCadastro = () => {
         this.props.history.push('/atendimentos')
     }
@@ -196,6 +243,8 @@ class Consulta extends React.Component {
                             <div className="numAntrop">
                             <button type="button" className="btn btn-primary btn-space  "
                                 onClick={this.historico}>Historico de Atendimentos</button>
+                                <button type="button" className="btn btn-success btn-space  "
+                                onClick={this.exames}>Resultados de exames</button>
                                 <br></br>
                                 <br></br>
                                 <h6>Dados Antropometricos</h6>
@@ -295,7 +344,7 @@ class Consulta extends React.Component {
                             <br></br>
                             <br></br>
                             <button type="button" className="btn btn-success btn-space btn-lg "
-                                onClick={this.preencherIds}>Salvar</button>
+                                onClick={this.salvar}>Salvar</button>
                             <button type="button" className="btn btn-primary btn-space btn-lg "
                                 onClick={this.cadastrar}>Concluir</button>
                             <button type="button" className="btn btn-danger btn-space btn-lg "

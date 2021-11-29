@@ -19,6 +19,9 @@ class AtendimentoService extends ApiService{
         if(atendimentoFiltro.idProfissional){
             params=`${params}&idProfissional=${atendimentoFiltro.idProfissional}`
         }
+        if(atendimentoFiltro.idUnidade){
+            params=`${params}&idUnidade=${atendimentoFiltro.idUnidade}`
+        }
     
         return this.getPorConsulta('/buscaratendimentos',params)
     }

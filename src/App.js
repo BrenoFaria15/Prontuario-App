@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Rotas from './main/rotas'
-import {Route,Switch,HashRouter} from 'react-router-dom'
+import {Route,Switch,HashRouter,Redirect} from 'react-router-dom'
 
 import 'bootswatch/dist/cerulean/bootstrap.css'
 import Login from './views/login';
@@ -11,8 +11,25 @@ import 'toastr/build/toastr.min.js'
 import HomePublico from './views/homePublico';
 import BuscarPaciente from './views/buscarPaciente';
 import ExamesLista from './views/examesLista';
+import AgendaLista from './views/agendaLista';
+import AuthService from './app/services/authService';
 
 
+function RotaAutenticada( { component: Component, isUsuarioAutenticado, ...props } ){
+  return (
+      <Route exact {...props} render={ (componentProps) => {
+          if(AuthService.isPacienteAutenticado()){
+              return (
+                  <Component {...componentProps} />
+              )
+          }else{
+              return(
+                  <Redirect to={ {pathname : '/buscarpaciente', state : { from: componentProps.location } } } />
+              )
+          }
+      }}  />
+  )
+}
 
 
 function App() {
@@ -21,7 +38,8 @@ function App() {
     <div>
     <HashRouter>
             <Switch>
-             <Route  exact path="/resultadosexames" component={ExamesLista}/>
+            <RotaAutenticada  exact path="/agendaspaciente" component={AgendaLista}/>
+             <RotaAutenticada  exact path="/resultadosexames" component={ExamesLista}/>
             <Route  exact path="/modulopublico" component={HomePublico}/>
               <Route  exact path="/modulopublico" component={HomePublico}/>
               <Route  exact path="/buscarpaciente" component={BuscarPaciente}/>

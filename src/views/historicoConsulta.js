@@ -5,6 +5,9 @@ import '../css/custom.css'
 import AtendimentoService from "../app/services/atendimentoServices";
 import { mensagemErro, mensagemOk } from "../components/toastr"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft} from '@fortawesome/free-solid-svg-icons'
+
 class HistoricoConsulta extends React.Component{
 
     constructor(props) {
@@ -87,8 +90,8 @@ class HistoricoConsulta extends React.Component{
                         <fieldset>
                             <legend>Consulta</legend>
                             <div className="numAntrop">
-                            <button type="button" className="btn btn-danger btn-space  "
-                                onClick={this.voltar}>Voltar</button>
+                            <button type="button" className="btn btn-danger btn-space  " title="Voltar"
+                                onClick={this.voltar}><FontAwesomeIcon icon={faChevronLeft} /></button>
                                 <br></br>
                                 <br></br>
                                 <h6>Dados Antropometricos</h6>
