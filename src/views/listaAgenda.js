@@ -8,7 +8,7 @@ import { mensagemErro, mensagemOk } from "../components/toastr"
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass,faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass,faPlus,faPrint} from '@fortawesome/free-solid-svg-icons'
 
 class ListaAgenda extends React.Component {
     state = {
@@ -84,6 +84,8 @@ class ListaAgenda extends React.Component {
                         <br></br>
                         <br></br>
                         <div className="form-group center" >
+                        <button type="button" className="btn btn-primary btn-space "  title="Relatorios de Agendamentos"
+                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
                             <button type="button" className="btn btn-success btn-space" title="Buscar Agendados"
                                 onClick={() => this.BuscarAgendados(this.state.data)}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                             <button type="button" className="btn btn-primary btn-space" title="Buscar Agendamentos"

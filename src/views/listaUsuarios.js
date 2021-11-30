@@ -7,7 +7,7 @@ import UsuarioService from "../app/services/usuarioServices";
 import { mensagemErro, mensagemOk } from "../components/toastr"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare,faTrashCan,faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare,faTrashCan,faPlus,faPrint} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -88,6 +88,8 @@ class ListaUsuario extends React.Component {
                         <legend >Usuarios</legend>
                         <br></br>
                         <br></br>
+                        <button type="button" className="btn btn-primary btn-space "  title="Relatorios de Usuarios"
+                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
                         <button type="button" className="btn btn-primary " title="Novo Usuario"
                             onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         <br></br>

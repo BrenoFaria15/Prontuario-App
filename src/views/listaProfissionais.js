@@ -8,7 +8,7 @@ import { mensagemErro, mensagemOk } from "../components/toastr"
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare,faTrashCan,faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare,faTrashCan,faPlus,faPrint} from '@fortawesome/free-solid-svg-icons'
 
 
 import { Dialog } from 'primereact/dialog';
@@ -80,6 +80,8 @@ class ListaProfissionais extends React.Component {
                         <legend >Profissionais</legend>
                         <br></br>
                         <br></br>
+                        <button type="button" className="btn btn-primary btn-space "  title="Relatorios de Profissionais"
+                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
                         <button type="button" className="btn btn-primary " title="Novo Profissional"
                             onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         <br></br>

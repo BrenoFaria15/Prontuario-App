@@ -38,6 +38,19 @@ class Navbar extends React.Component {
   }
 
   componentDidMount() {
+    const profissional = document.getElementById("profissional")
+    const paciente = document.getElementById("paciente")
+    const unidade = document.getElementById("unidade")
+    const usuarioid = document.getElementById("usuario")
+    const exame = document.getElementById("exame")
+    let usuario = LocalStorageService.obterItem('_usuario_logado')
+    if(usuario.tipoUsuario=='RECEPCAO'){
+      exame.style.visibility ="hidden"
+      profissional.style.visibility ="hidden"
+      paciente.style.visibility ="hidden"
+      unidade.style.visibility ="hidden"
+      usuarioid.style.visibility ="hidden"
+    }
     this.getUnidades();
   }
 
@@ -65,29 +78,29 @@ class Navbar extends React.Component {
 
           <ul className="navbar-nav me-auto">
             <li className="nav-item active">
-              <a className="nav-link sizeletra" href="#/atendimentos">Atendimentos
+              <a className="nav-link sizeletra" id="atendimento" href="#/atendimentos">Atendimentos
 
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link sizeletra" href="#/agenda">Agenda</a>
+              <a className="nav-link sizeletra" id="agenda" href="#/agenda">Agenda</a>
             </li>
 
             <li className="nav-item active">
-              <a className="nav-link sizeletra" href="#/pacientes">Pacientes
+              <a className="nav-link sizeletra" id="paciente" href="#/pacientes">Pacientes
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link sizeletra" href="#/exames">Exames</a>
+              <a className="nav-link sizeletra" id="exame" href="#/exames">Exames</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link sizeletra" href="#/profissionais">Profissionais</a>
+              <a className="nav-link sizeletra" id="profissional" href="#/profissionais">Profissionais</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link sizeletra" href="#/unidades">Unidades</a>
+              <a className="nav-link sizeletra" id="unidade" href="#/unidades">Unidades</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link sizeletra" href="#/usuarios/">Usuarios</a>
+              <a className="nav-link sizeletra" id="usuario" href="#/usuarios/">Usuarios</a>
             </li>
             <li className="nav-item">
               <a className="nav-link sizeletra" onClick={() => this.trocarUnidade()} href="#/">Trocar Unidade</a>
@@ -101,7 +114,7 @@ class Navbar extends React.Component {
 
           </ul>
         </div>
-        <Dialog header="selecione a Unidade"
+        <Dialog header="Selecione a Unidade"
           visible={this.state.show}
           style={{ width: '50vw' }}
           onHide={() => this.setState({ show: false })}>

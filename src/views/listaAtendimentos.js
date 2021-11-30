@@ -9,7 +9,7 @@ import { mensagemErro, mensagemOk } from "../components/toastr"
 import LocalStorageService from "../app/services/localStorageService";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserDoctor,faTrashCan,faMagnifyingGlass,faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faUserDoctor, faTrashCan, faMagnifyingGlass, faPlus,faPrint } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -49,8 +49,8 @@ class listaAtendimentos extends React.Component {
             setselectData: INITIAL_DATA,
             selectDataP: INITIAL_DATAP,
             setselectDataP: INITIAL_DATAP,
-            id_unidade:7,
-            id_usuario:16
+            id_unidade: 7,
+            id_usuario: 16
 
         }
 
@@ -58,14 +58,13 @@ class listaAtendimentos extends React.Component {
 
 
 
-
     buscar = () => {
-        let unidade=LocalStorageService.obterItem('_unidade_logada')
+        let unidade = LocalStorageService.obterItem('_unidade_logada')
         const atendimentoFiltro = {
             data: this.state.data,
             idPaciente: this.state.id_paciente,
             idProfissional: this.state.id_profissional,
-            idUnidade:unidade.id_unidade
+            idUnidade: unidade.id_unidade
         }
         this.service.consultar(atendimentoFiltro).then(
             response => {
@@ -74,6 +73,7 @@ class listaAtendimentos extends React.Component {
         ).catch(error =>
             console.log(error))
         console.log(this.state)
+
     }
 
 
@@ -108,19 +108,24 @@ class listaAtendimentos extends React.Component {
  </div>*/
 
     editar(id) {
-        LocalStorageService.adicionarItem('_ultima_consulta',id)
-        this.props.history.push("/atendimentos/consulta/" +id);
+        const usuario = LocalStorageService.obterItem('_usuario_logado')
+        if (usuario.tipoUsuario == 'RECEPCAO') {
+            mensagemErro("Usuarios com o Perfil Recepção Não podem realizar Consultas")
+            return false
+        }
+        LocalStorageService.adicionarItem('_ultima_consulta', id)
+        this.props.history.push("/atendimentos/consulta/" + id);
     }
 
-    excluir(id){
+    excluir(id) {
         this.service.deletar(id).then(
-            response =>{
+            response => {
                 this.props.history.push('/atendimentos');
                 mensagemOk('Atendimento Excluido com Sucesso');
             }
-          ) .catch(error => {
-              mensagemErro(error.response.data)
-          }) 
+        ).catch(error => {
+            mensagemErro(error.response.data)
+        })
     }
 
     handleSubmit() {
@@ -208,6 +213,8 @@ class listaAtendimentos extends React.Component {
 
                                 <div className="form-row ">
                                     <div className="form-group center" >
+                                        <button type="button" className="btn btn-primary btn-space " title="Relatorios de Atendimentos"
+                                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
                                         <button type="button" className="btn btn-success btn-space" title="Buscar"
                                             onClick={this.buscar}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                                         <button type="button" className="btn btn-primary btn-space" title="Novo Atendimento"
@@ -235,17 +242,17 @@ class listaAtendimentos extends React.Component {
                                                     <tr className="table-primary">
                                                         <th scope="row">{atendimento.id_atendimento}</th>
                                                         <td><input class="form-check-input" checked={atendimento.flg_atendido} readOnly="true" type="checkbox" value="" id="flexCheckDefault">
-                                                       </input>
+                                                        </input>
                                                         </td>
                                                         <td>{atendimento.data}</td>
                                                         <td>{atendimento.paciente.nome}</td>
                                                         <td>{atendimento.profissional.nome}</td>
                                                         <td>
-                                                        
-                                                            <button type="button" className="btn btn-success btn-space" title="Consultar"
+
+                                                            <button type="button" className="btn btn-success btn-space" title="Consultar" id="consultabutton"
                                                                 onClick={() => this.editar(atendimento.id_atendimento)}><FontAwesomeIcon icon={faUserDoctor} /></button>
-                                                                
-                                                            <button type="button" className="btn btn-danger btn-space"  title="Excluir"
+
+                                                            <button type="button" className="btn btn-danger btn-space" title="Excluir" id="excluir"
                                                                 onClick={() => this.excluir(atendimento.id_atendimento)}><FontAwesomeIcon icon={faTrashCan} /></button>
                                                         </td>
                                                     </tr>

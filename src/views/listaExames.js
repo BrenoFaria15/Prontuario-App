@@ -14,7 +14,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare,faTrashCan,faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare,faTrashCan,faPlus,faPrint} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -86,6 +86,8 @@ class ListaExames extends React.Component {
                         <br></br>
                         <div className="form-row ">
                             <div className="form-group center">
+                            <button type="button" className="btn btn-primary btn-space btn-lg"  title="Relatorios de Exames"
+                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
                                 <button type="button" className="btn btn-primary btn-space btn-lg "
                                     onClick={this.prepareCadastrar}>Cadastrar Exame</button>
                                 <button type="button" className="btn btn-success btn-space btn-lg "

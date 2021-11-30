@@ -178,6 +178,14 @@ class CadastroUsuario extends React.Component {
                                         Recepção
                                     </label>
                                 </div>
+                                <div className="form-check ">
+                                    <label className="form-check-label">
+                                        <input type="radio" className="form-check-input" name="perfil" id="radioRecepcao" value="RECEPCAO"
+                                        checked={this.state.tipoUsuario === "RECEPCAO"}
+                                        onChange={e => this.setState({tipoUsuario: e.target.value})}></input>
+                                        Gestão
+                                    </label>
+                                </div>
                             </fieldset>
 
                         </div>

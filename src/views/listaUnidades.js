@@ -8,7 +8,7 @@ import { mensagemErro, mensagemOk } from "../components/toastr"
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare,faTrashCan,faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare,faTrashCan,faPlus,faPrint} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -85,6 +85,8 @@ class ListaUnidades extends React.Component {
                         <legend >Unidades</legend>
                         <br></br>
                         <br></br>
+                        <button type="button" className="btn btn-primary btn-space "  title="Relatorios de Unidades"
+                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
                         <button type="button" className="btn btn-primary " title="Nova Unidade"
                             onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         <br></br>

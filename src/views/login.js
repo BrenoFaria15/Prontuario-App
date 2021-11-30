@@ -93,7 +93,7 @@ class Login extends React.Component {
 
                     </form>
                     <div>
-                        <Dialog header="selecione a Unidade"
+                        <Dialog header="Selecione a Unidade"
                             visible={this.state.show}
                             style={{ width: '50vw' }}
                             onHide={() => this.setState({ show: false })}>
