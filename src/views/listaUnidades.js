@@ -70,6 +70,14 @@ class ListaUnidades extends React.Component {
         this.setState({show:true,deleteItem:item})
     }
 
+    imprimirRelatorio = ()=>{
+        const link = document.createElement('a');
+        link.href = `http://localhost:8080/api/unidades/relatorio-unidade`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     render() {
         const confirmarDelete = (
             <div>
@@ -86,7 +94,7 @@ class ListaUnidades extends React.Component {
                         <br></br>
                         <br></br>
                         <button type="button" className="btn btn-primary btn-space "  title="Relatorios de Unidades"
-                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
+                            onClick={this.imprimirRelatorio}><FontAwesomeIcon icon={faPrint} /></button>
                         <button type="button" className="btn btn-primary " title="Nova Unidade"
                             onClick={this.prepareCadastrar}><FontAwesomeIcon icon={faPlus} /></button>
                         <br></br>

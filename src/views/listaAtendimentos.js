@@ -90,7 +90,7 @@ class listaAtendimentos extends React.Component {
 
     async callApiP(value) {
         const datap = await fetch(`http://localhost:8080/api/profissionais/all`)
-            .then((response) => response.json())
+            .then((response) => response.json()) 
             .then((response) => response.map(mapResponseToValuesAndLabelsP))
             .then((final) =>
                 final.filter((i) => i.label.toLowerCase().includes(value.toLowerCase()))
@@ -111,6 +111,10 @@ class listaAtendimentos extends React.Component {
         const usuario = LocalStorageService.obterItem('_usuario_logado')
         if (usuario.tipoUsuario == 'RECEPCAO') {
             mensagemErro("Usuarios com o Perfil Recepção Não podem realizar Consultas")
+            return false
+        }
+        if (usuario.tipoUsuario == 'GESTAO') {
+            mensagemErro("Usuarios com o Perfil Gestão Não podem realizar Consultas")
             return false
         }
         LocalStorageService.adicionarItem('_ultima_consulta', id)

@@ -180,8 +180,8 @@ class CadastroUsuario extends React.Component {
                                 </div>
                                 <div className="form-check ">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" name="perfil" id="radioRecepcao" value="RECEPCAO"
-                                        checked={this.state.tipoUsuario === "RECEPCAO"}
+                                        <input type="radio" className="form-check-input" name="perfil" id="radioGestao" value="GESTAO"
+                                        checked={this.state.tipoUsuario === "GESTAO"}
                                         onChange={e => this.setState({tipoUsuario: e.target.value})}></input>
                                         Gestão
                                     </label>
