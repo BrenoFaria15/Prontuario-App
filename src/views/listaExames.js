@@ -68,6 +68,14 @@ class ListaExames extends React.Component {
     abrirConfirmar = (item) =>{
         this.setState({show:true,deleteItem:item})
     }
+
+    imprimirRelatorio = ()=>{
+        const link = document.createElement('a');
+        link.href = `http://localhost:8080/api/exames/relatorio-exame`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
     render() {
 
         const confirmarDelete =(
@@ -87,7 +95,7 @@ class ListaExames extends React.Component {
                         <div className="form-row ">
                             <div className="form-group center">
                             <button type="button" className="btn btn-primary btn-space btn-lg"  title="Relatorios de Exames"
-                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
+                            onClick={this.imprimirRelatorio}><FontAwesomeIcon icon={faPrint} /></button>
                                 <button type="button" className="btn btn-primary btn-space btn-lg "
                                     onClick={this.prepareCadastrar}>Cadastrar Exame</button>
                                 <button type="button" className="btn btn-success btn-space btn-lg "

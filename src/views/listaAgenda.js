@@ -104,9 +104,38 @@ class ListaAgenda extends React.Component {
     }
 
     BuscarAgendados = (data) => {
+        if (!this.state.data){
+            mensagemErro("Informe um Data para Buscar")
+            return false
+        }
         this.service.buscarPorData(data).then(
             (response) =>
                 this.setState({ agendas: response.data }));
+    }
+
+    gerarRelatorio(){
+        if(!this.state.dataInicio || !this.state.dataFim){
+           mensagemErro("Digite um Intervalo de Datas")
+            return false
+        }
+
+        let params = `?dataInicio=${this.state.dataInicio}&dataFim=${this.state.dataFim}`
+
+        if(this.state.id_paciente){
+            params=`${params}&idPaciente=${this.state.id_paciente}`
+        }
+       
+
+        if(this.state.id_profissional){
+            params=`${params}&idProfissional=${this.state.id_profissional}`
+        }
+       
+        const link = document.createElement('a');
+        link.href = `http://localhost:8080/api/agenda/relatorio-agenda${params}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
     }
 
     ConfirmarPresenca(id, flgP) {
@@ -225,14 +254,14 @@ class ListaAgenda extends React.Component {
                                 <div className="form-group ">
                                     <label htmlFor="exampleInputEmail1">Data Inicio</label>
                                     <input type="date" className="form-control" id="exampleInputEmail1"
-                                        value={this.state.data} onChange={e => this.setState({ dataInicio: e.target.value })}></input>
+                                        value={this.state.dataInicio} onChange={e => this.setState({ dataInicio: e.target.value })}></input>
                                 </div>
                             </div>
                             <div className="col-md-4 center ">
                                 <div className="form-group ">
                                     <label htmlFor="exampleInputEmail1">Data Fim</label>
                                     <input type="date" className="form-control" id="exampleInputEmail1"
-                                        value={this.state.data} onChange={e => this.setState({ dataFim: e.target.value })}></input>
+                                        value={this.state.dataFim} onChange={e => this.setState({ dataFim: e.target.value })}></input>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +292,7 @@ class ListaAgenda extends React.Component {
                          <div className="form-row ">
                                     <div className="form-group center" >
                                         <button type="button" className="btn btn-primary btn-space " 
-                                            onClick="">Gerar Relatorio</button>
+                                            onClick={()=>this.gerarRelatorio()}>Gerar Relatorio</button>
                 
                                     </div>
                                 </div>
