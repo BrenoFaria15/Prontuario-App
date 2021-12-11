@@ -49,6 +49,8 @@ class Navbar extends React.Component {
     //const usuarioid = document.getElementById("usuario")
    // const exame = document.getElementById("exame")
     let usuario = LocalStorageService.obterItem('_usuario_logado')
+
+    if(usuario){
     if(usuario.tipoUsuario=='RECEPCAO'){
       this.setState({
         showExame:true,
@@ -72,7 +74,7 @@ class Navbar extends React.Component {
             showUnidade:true,
             showUsuario:true
           })}
-    
+        }
     this.getUnidades();
   }
 

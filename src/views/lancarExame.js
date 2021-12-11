@@ -16,6 +16,7 @@ const INITIAL_DATA = {
     label: 'Selecione o Paciente',
 };
 
+
 const mapResponseToValuesAndLabelsE = (data) => ({
     value: data.id_exame,
     label: data.nome,

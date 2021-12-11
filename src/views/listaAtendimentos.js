@@ -6,6 +6,8 @@ import AtendimentoService from "../app/services/atendimentoServices";
 import AsyncSelect from 'react-select/async';
 import { mensagemErro, mensagemOk } from "../components/toastr"
 
+import { Dialog } from 'primereact/dialog';
+
 import LocalStorageService from "../app/services/localStorageService";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -40,6 +42,7 @@ class listaAtendimentos extends React.Component {
         this.service = new AtendimentoService();
         this.state = {
             data: '',
+            show:false,
             nomePaciente: '',
             nomeProfissional: '',
             atendimentos: [],
@@ -50,7 +53,9 @@ class listaAtendimentos extends React.Component {
             selectDataP: INITIAL_DATAP,
             setselectDataP: INITIAL_DATAP,
             id_unidade: 7,
-            id_usuario: 16
+            id_usuario: 16,
+            dataInicio:'',
+            dataFim:''
 
         }
 
@@ -121,6 +126,7 @@ class listaAtendimentos extends React.Component {
         this.props.history.push("/atendimentos/consulta/" + id);
     }
 
+    
     excluir(id) {
         this.service.deletar(id).then(
             response => {
@@ -218,7 +224,7 @@ class listaAtendimentos extends React.Component {
                                 <div className="form-row ">
                                     <div className="form-group center" >
                                         <button type="button" className="btn btn-primary btn-space " title="Relatorios de Atendimentos"
-                                            onClick=""><FontAwesomeIcon icon={faPrint} /></button>
+                                            onClick={()=> this.setState({show:true})}><FontAwesomeIcon icon={faPrint} /></button>
                                         <button type="button" className="btn btn-success btn-space" title="Buscar"
                                             onClick={this.buscar}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                                         <button type="button" className="btn btn-primary btn-space" title="Novo Atendimento"
@@ -266,6 +272,58 @@ class listaAtendimentos extends React.Component {
                                 </table>
                             </fieldset>
                         </form>
+                        <Dialog header="Gerar Relatorio"
+                        visible={this.state.show}
+                        style={{ width: '50vw' }}
+                        onHide={() => this.setState({ show: false })}>
+                        <div className="form-row">
+                            <div className="col-md-4 center ">
+                                <div className="form-group ">
+                                    <label htmlFor="exampleInputEmail1">Data Inicio</label>
+                                    <input type="date" className="form-control" id="exampleInputEmail1"
+                                        value={this.state.data} onChange={e => this.setState({ dataInicio: e.target.value })}></input>
+                                </div>
+                            </div>
+                            <div className="col-md-4 center ">
+                                <div className="form-group ">
+                                    <label htmlFor="exampleInputEmail1">Data Fim</label>
+                                    <input type="date" className="form-control" id="exampleInputEmail1"
+                                        value={this.state.data} onChange={e => this.setState({ dataFim: e.target.value })}></input>
+                                </div>
+                            </div>
+                        </div>
+                        <br></br>
+                        <br></br>
+                        <AsyncSelect
+                            cacheOptions
+                            loadOptions={this.callApi}
+                            onChange={(data) => {
+                                this.setselectData(data);
+                            }}
+                            value={this.state.selectData}
+                            defaultOptions
+                        />
+                        <br></br>
+                        <br></br>
+                        <AsyncSelect
+                            cacheOptions
+                            loadOptions={this.callApiP}
+                            onChange={(data) => {
+                                this.setselectDataP(data);
+                            }}
+                            value={this.state.selectDataP}
+                            defaultOptions
+                        />
+                        <br></br>
+                        <br></br>
+                         <div className="form-row ">
+                                    <div className="form-group center" >
+                                        <button type="button" className="btn btn-primary btn-space " 
+                                            onClick="">Gerar Relatorio</button>
+                
+                                    </div>
+                                </div>
+                    </Dialog>
                     </div>
                 </div>
             </div>
