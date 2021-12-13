@@ -97,7 +97,7 @@ class listaAtendimentos extends React.Component {
 
 
     async callApi(value) {
-        const data = await fetch(`http://localhost:8080/api/pacientes/all`)
+        const data = await fetch(`https://prontuarioweb-api.herokuapp.com/api/pacientes/allfiltro`)
             .then((response) => response.json())
             .then((response) => response.map(mapResponseToValuesAndLabels))
             .then((final) =>
@@ -108,7 +108,7 @@ class listaAtendimentos extends React.Component {
     }
 
     async callApiP(value) {
-        const datap = await fetch(`http://localhost:8080/api/profissionais/all`)
+        const datap = await fetch(`https://prontuarioweb-api.herokuapp.com/api/profissionais/allfiltro`)
             .then((response) => response.json()) 
             .then((response) => response.map(mapResponseToValuesAndLabelsP))
             .then((final) =>
@@ -204,7 +204,7 @@ class listaAtendimentos extends React.Component {
         }
        
         const link = document.createElement('a');
-        link.href = `http://localhost:8080/api/atendimentos/relatorio-atendimento${params}`;
+        link.href = `https://prontuarioweb-api.herokuapp.com/api/atendimentos/relatorio-atendimento${params}`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

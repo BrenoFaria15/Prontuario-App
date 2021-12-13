@@ -72,7 +72,7 @@ class ListaUnidades extends React.Component {
 
     imprimirRelatorio = ()=>{
         const link = document.createElement('a');
-        link.href = `http://localhost:8080/api/unidades/relatorio-unidade`;
+        link.href = `https://prontuarioweb-api.herokuapp.com/api/unidades/relatorio-unidade`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

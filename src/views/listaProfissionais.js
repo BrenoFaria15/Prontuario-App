@@ -67,7 +67,7 @@ class ListaProfissionais extends React.Component {
 
     imprimirRelatorio = ()=>{
         const link = document.createElement('a');
-        link.href = `http://localhost:8080/api/profissionais/relatorio-profissional`;
+        link.href = `https://prontuarioweb-api.herokuapp.com/api/profissionais/relatorio-profissional`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

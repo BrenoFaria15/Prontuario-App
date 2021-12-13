@@ -46,7 +46,7 @@ class LancarExame extends React.Component {
     }
 
     async callApiE(value) {
-        const data = await fetch(`http://localhost:8080/api/exames/all`)
+        const data = await fetch(`https://prontuarioweb-api.herokuapp.com/api/exames/all`)
             .then((response) => response.json())
             .then((response) => response.map(mapResponseToValuesAndLabelsE))
             .then((final) =>
@@ -58,7 +58,7 @@ class LancarExame extends React.Component {
 
     
     async callApi(value) {
-        const data = await fetch(`http://localhost:8080/api/pacientes/all`)
+        const data = await fetch(`https://prontuarioweb-api.herokuapp.com/api/pacientes/allfiltro`)
             .then((response) => response.json())
             .then((response) => response.map(mapResponseToValuesAndLabels))
             .then((final) =>

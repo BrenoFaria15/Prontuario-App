@@ -35,7 +35,7 @@ class ListaPacientes extends React.Component {
    /// binaryData.push(teste);
 
    const link = document.createElement('a');
-   link.href = `http://localhost:8080/api/pacientes/relatorio-paciente`;
+   link.href = `https://prontuarioweb-api.herokuapp.com/api/pacientes/relatorio-paciente`;
    document.body.appendChild(link);
    link.click();
    document.body.removeChild(link);

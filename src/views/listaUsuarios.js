@@ -75,7 +75,7 @@ class ListaUsuario extends React.Component {
 
     imprimirRelatorio = ()=>{
         const link = document.createElement('a');
-        link.href = `http://localhost:8080/api/usuarios/relatorio-usuario`;
+        link.href = `https://prontuarioweb-api.herokuapp.com/api/usuarios/relatorio-usuario`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

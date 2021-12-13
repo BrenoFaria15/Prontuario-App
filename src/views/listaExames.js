@@ -71,7 +71,7 @@ class ListaExames extends React.Component {
 
     imprimirRelatorio = ()=>{
         const link = document.createElement('a');
-        link.href = `http://localhost:8080/api/exames/relatorio-exame`;
+        link.href = `https://prontuarioweb-api.herokuapp.com/api/exames/relatorio-exame`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
