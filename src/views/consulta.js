@@ -79,7 +79,7 @@ class Consulta extends React.Component {
                         id_unidade: consulta.unidade.id_unidade,
                         id_usuario: consulta.usuario.id_usuario,
                         data: consulta.data,
-                        hora:consulta.hora,
+                        hora: consulta.horaInicio,
                         flg_atendido:consulta.flg_atendido
                     }
 
@@ -118,8 +118,8 @@ class Consulta extends React.Component {
             unidade: this.state.id_unidade,
             usuario: this.state.id_usuario,
             tipoatendimento: this.state.id_tipo_atendimento,
-            horaFim: horaFinal,
             data: this.state.data,
+            horaInicio:this.state.hora
           
         }
 
@@ -191,6 +191,7 @@ class Consulta extends React.Component {
             unidade: this.state.id_unidade,
             usuario: this.state.id_usuario,
             tipoatendimento: this.state.id_tipo_atendimento,
+            horaInicio:this.state.hora,
             horaFim: horaFinal,
             data: this.state.data,
             flg_atendido: true
@@ -251,12 +252,12 @@ class Consulta extends React.Component {
                                 <div className="form-row ">
                                     <div className="form-group col-md-1 center ">
                                         <label htmlFor="exampleInputEmail1">Peso</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Peso"
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.peso} onChange={e => this.setState({ peso: e.target.value })}></input>
                                     </div>
                                     <div className="form-group col-md-1 center">
-                                        <label htmlFor="exampleInputEmail1">Altura</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Cm"
+                                        <label htmlFor="exampleInputEmail1">Altura(Cm)</label>
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.altura} onChange={e => this.setState({ altura: e.target.value })}></input>
                                     </div>
                                     <div className="form-group col-md-1 center">
@@ -266,7 +267,7 @@ class Consulta extends React.Component {
                                     </div>
                                     <div className="form-group col-md-1 center">
                                         <label htmlFor="exampleInputEmail1">BPM</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="BPM"
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.bpm} onChange={e => this.setState({ bpm: e.target.value })}></input>
                                     </div>
                                 </div>
@@ -274,12 +275,12 @@ class Consulta extends React.Component {
                                 <div className="form-row">
                                     <div className="form-group col-md-1 center ">
                                         <label htmlFor="exampleInputEmail1">P.A(sistólica)</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="mmHg"
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.pressao1} onChange={e => this.setState({ pressao1: e.target.value })}></input>
                                     </div>
                                     <div className="form-group col-md-1 center ">
                                         <label htmlFor="exampleInputEmail1">P.A(diastólica)</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="mmHg"
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.pressao2} onChange={e => this.setState({ pressao2: e.target.value })}></input>
                                     </div>
                                     <div className="form-group col-md-1 center ">
@@ -289,12 +290,12 @@ class Consulta extends React.Component {
                                     </div>
                                     <div className="form-group col-md-1 center">
                                         <label htmlFor="exampleInputEmail1">Saturação</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="BPM"
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.saturacao} onChange={e => this.setState({ saturacao: e.target.value })}></input>
                                     </div>
                                     <div className="form-group col-md-1 center">
                                         <label htmlFor="exampleInputEmail1">Temperatura</label>
-                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder="BPM"
+                                        <input type="text" className="form-control" id="exampleInputEmail1" placeholder=""
                                             value={this.state.temperatura} onChange={e => this.setState({ temperatura: e.target.value })}></input>
                                     </div>
 

@@ -43,6 +43,13 @@ class NovoAtendimento extends React.Component {
         this.tipoAtendService = new TipoAtendimentoService();
         this.state = {
             id_atendimento:props.match.params.id,
+            peso: null,
+            altura: '',
+            imc: '',
+            bpm: '',
+            temperatura: '',
+            pressao1: '',
+            pressao2: '',
             data: '',
             hora:'',
             nomePaciente: '',
@@ -66,7 +73,7 @@ class NovoAtendimento extends React.Component {
     }
 
     async callApi(value) {
-        const data = await fetch(`http://localhost:8080/api/pacientes/all`)
+        const data = await fetch(`https://prontuarioweb-api.herokuapp.com/api/pacientes/all`)
             .then((response) => response.json())
             .then((response) => response.map(mapResponseToValuesAndLabels))
             .then((final) =>
@@ -77,7 +84,7 @@ class NovoAtendimento extends React.Component {
     }
 
     async callApiP(value) {
-        const datap = await fetch(`http://localhost:8080/api/profissionais/all`)
+        const datap = await fetch(`https://prontuarioweb-api.herokuapp.com/api/profissionais/all`)
             .then((response) => response.json())
             .then((response) => response.map(mapResponseToValuesAndLabelsP))
             .then((final) =>
@@ -160,6 +167,13 @@ class NovoAtendimento extends React.Component {
 
         const atendimento ={
             data: this.state.data,
+            peso: this.state.peso,
+            altura: this.state.altura,
+            imc: this.state.imc,
+            bpm: this.state.bpm,
+            temperatura: this.state.temperatura,
+            pressao1: this.state.pressao1,
+            pressao2: this.state.pressao2,
             horaInicio: this.state.hora,
             tipoatendimento:this.state.id_tipo_atendimento,
             paciente: this.state.id_paciente,

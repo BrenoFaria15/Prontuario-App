@@ -5,6 +5,7 @@ import '../css/custom.css'
 import AgendaService from "../app/services/agendaServices";
 import AsyncSelect from 'react-select/async';
 import { mensagemErro, mensagemOk } from "../components/toastr"
+import LocalStorageService from "../app/services/localStorageService";
 
 const INITIAL_DATA = {
     value: 0,
@@ -84,14 +85,17 @@ class CadastroAgenda extends React.Component{
             return false;
         }
 
+        let usuario = LocalStorageService.obterItem('_usuario_logado')
+        let unidade = LocalStorageService.obterItem('_unidade_logada')
+
         const agenda ={
             data: this.state.data,
             hora:this.state.hora,
             horaInicio: this.state.hora,
             paciente: this.state.id_paciente,
             profissional: this.state.id_profissional,
-            unidade:7,
-            usuario:1,
+            unidade:unidade.id_unidade,
+            usuario:usuario.id_usuario,
             flg_presente:this.state.flg_presente
         }
 
