@@ -61,18 +61,18 @@ class Navbar extends React.Component {
     }
       if(usuario.tipoUsuario=='MEDICO'){
         this.setState({
-          showExame:true,
           showProfissional:true,
           showUnidade:true,
-          showUsuario:true
+          showUsuario:true,
+          
         })}
      
         if(usuario.tipoUsuario=='ENFERMEIRO'){
           this.setState({
-            showExame:true,
             showProfissional:true,
             showUnidade:true,
-            showUsuario:true
+            showUsuario:true,
+           
           })}
         }
     this.getUnidades();
